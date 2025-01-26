@@ -1,0 +1,24 @@
+@import 'settings';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+a {
+    text-decoration: none;
+    color: $dark-blue;
+}
+
+p {
+    color: $dark-blue;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+}
