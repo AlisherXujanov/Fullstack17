@@ -1,0 +1,29 @@
+// ==============================================================
+$violet: #7E33E0;
+$light-violet: #F1F0FF;
+$lighter-violet: #F6F5FF;
+$darker-violet: #E7E4F8;
+
+$light: #fff;
+
+$blue: #2F1AC4;
+$dark-blue: #0D0E43;
+$light-blue: #1DB4E7;
+
+$red: #FB2E86;
+$red-lighter: #FEBAD7;
+
+$text-color-transparent: #BBB6CE;
+$green: #08D15F;
+$khai: #FFEAC1;
+
+// ==============================================================
+// MIXINS
+@mixin flex($direction: row, $justify: center, $align: center, $gap: 10px, $wrap: wrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+    flex-wrap: $wrap;
+}
