@@ -50,7 +50,9 @@
 
 <style lang="scss" scoped>
 nav {
-    .top-nav {}
+    .top-nav {
+        background-color: $violet;
+    }
     .main-nav {}
 }
 </style>
