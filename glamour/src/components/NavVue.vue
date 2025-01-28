@@ -1,5 +1,5 @@
 <script setup>
-
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -29,7 +29,8 @@
             <div class="left">
                 <h2 id="logo">Glamour</h2>
                 <div class="nav-links">
-                    <a href="#">Home</a>
+                    <RouterLink to="/">Home</RouterLink>
+                    <RouterLink to="/about">About</RouterLink>
                     <a href="#">Pages</a>
                     <a href="#">Products</a>
                     <a href="#">Blog</a>

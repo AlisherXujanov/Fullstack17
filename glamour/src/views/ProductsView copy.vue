@@ -4,7 +4,7 @@ import HeadingVue from '@/components/HeadingVue.vue'
 
 <template>
   <div>
-    <HeadingVue heading="About Us" path="Home . Pages . About Us" />
+    <HeadingVue heading="Shop List" path="Home . Pages . Shop List" />
   </div>
 </template>
 
