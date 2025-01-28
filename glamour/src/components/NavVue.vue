@@ -29,12 +29,12 @@ import { RouterLink } from 'vue-router'
             <div class="left">
                 <h2 id="logo">Glamour</h2>
                 <div class="nav-links">
-                    <RouterLink to="/">Home</RouterLink>
-                    <RouterLink to="/about">About</RouterLink>
-                    <RouterLink to="/products">Products</RouterLink>
-                    <RouterLink to="/blog">Blog</RouterLink>
-                    <RouterLink to="/shop">Shop</RouterLink>
-                    <RouterLink to="/contact">Contact</RouterLink>
+                    <RouterLink to="/" active-class="active">Home</RouterLink>
+                    <RouterLink to="/about" active-class="active">About</RouterLink>
+                    <RouterLink to="/products" active-class="active">Products</RouterLink>
+                    <RouterLink to="/blog" active-class="active">Blog</RouterLink>
+                    <RouterLink to="/shop" active-class="active">Shop</RouterLink>
+                    <RouterLink to="/contact" active-class="active">Contact</RouterLink>
                 </div>
             </div>
             <div class="right">
@@ -51,8 +51,44 @@ import { RouterLink } from 'vue-router'
 <style lang="scss" scoped>
 nav {
     .top-nav {
+        padding: 10px 200px;
         background-color: $violet;
+        color: $light;
+        @include flex(row, space-between);
+
+        .left {
+            a {
+                color: $light;
+                margin-right: 50px;
+            }
+        }
+
+        .right {
+            @include flex(row, space-evenly);
+        }
     }
-    .main-nav {}
+
+    .main-nav {
+        padding: 20px 200px;
+        @include flex(row, space-between);
+
+        .left {
+            @include flex(row, space-between);
+
+            #logo {
+                margin-right: 200px;
+                font-size: 2em;
+            }
+
+            a {
+                margin-right: 20px;
+                padding: 10px;
+
+                &.active {
+                    color: $red;
+                }
+            }
+        }
+    }
 }
 </style>
