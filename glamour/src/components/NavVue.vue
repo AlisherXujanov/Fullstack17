@@ -31,11 +31,10 @@ import { RouterLink } from 'vue-router'
                 <div class="nav-links">
                     <RouterLink to="/">Home</RouterLink>
                     <RouterLink to="/about">About</RouterLink>
-                    <a href="#">Pages</a>
-                    <a href="#">Products</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Shop</a>
-                    <a href="#">Contact</a>
+                    <RouterLink to="/products">Products</RouterLink>
+                    <RouterLink to="/blog">Blog</RouterLink>
+                    <RouterLink to="/shop">Shop</RouterLink>
+                    <RouterLink to="/contact">Contact</RouterLink>
                 </div>
             </div>
             <div class="right">
