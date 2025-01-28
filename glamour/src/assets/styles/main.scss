@@ -1,5 +1,5 @@
-@use 'resets';
-
+@use './settings' as *;
+@use './resets';
 
 @font-face {
     font-family: 'Roboto';
