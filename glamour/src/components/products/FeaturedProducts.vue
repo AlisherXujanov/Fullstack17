@@ -31,4 +31,23 @@ import dbJSON from '@/store/db.json'
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+.featured-product-wrapper {
+    padding: 10px 200px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+
+    .product-item {
+        background-color: $light;
+        box-shadow: 0 8px 16px $darker-violet;
+        padding: 10px;
+        border-radius: 10px;
+        height: 400px;
+    }
+}
+</style>
