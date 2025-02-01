@@ -1,9 +1,17 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import { ref, computed } from 'vue';
+
+let search = ref('')
+
 
 const testUsers = [
-  "Alisher", "John", "Doe", "Jane", "Doe", "Alijon",
-  "Aziz", "Bemiyya", "Abu-bubu", "Donik", "Jonik", "Onur",]
+    "Alisher", "John", "Doe", "Jane", "Doe", "Alijon",
+    "Aziz", "Bemiyya", "Abu-bubu", "Donik", "Jonik", "Onur",]
+
+const filteredNames = computed(() => {
+    return testUsers.filter((name) => name.toLowerCase().includes(search.value.toLowerCase()))
+})
 
 </script>
 
@@ -44,8 +52,13 @@ const testUsers = [
             </div>
             <div class="right">
                 <div class="searchbar">
-                    <input type="search">
+                    <input type="search" v-model="search" placeholder="Search for products">
                     <button>🔍</button>
+                    <ul v-if="search.length > 0">
+                        <li v-for="name in filteredNames" :key="name">
+                            {{ name }}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
