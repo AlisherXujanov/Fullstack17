@@ -30,9 +30,7 @@ const lightThemeStyle = { backgroundColor: '#fff' }
         <div class="details">
             <button @click="toggleShow" :class="computedValue">
                 Show
-                <span class="arrow" :class="show ? 'rotate' : ''">
-                    &rArr;
-                </span>
+                <span class="arrow" :class="show ? 'rotate' : ''">&rArr;</span>
             </button>
 
             <div v-show="show">

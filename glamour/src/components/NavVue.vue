@@ -1,5 +1,10 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+
+const testUsers = [
+  "Alisher", "John", "Doe", "Jane", "Doe", "Alijon",
+  "Aziz", "Bemiyya", "Abu-bubu", "Donik", "Jonik", "Onur",]
+
 </script>
 
 <template>
