@@ -150,10 +150,6 @@ nav {
           align-items: center;
           gap: 0.5rem;
           cursor: pointer;
-
-          &:hover {
-            color: #e5e5e5;
-          }
         }
       }
     }

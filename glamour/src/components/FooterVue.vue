@@ -49,12 +49,7 @@ const socialImages = [
         <div class="newsletter">
           <h1>Brand Name</h1>
           <div class="subscribe">
-            <input
-              class="email"
-              type="email"
-              placeholder="Enter your email"
-              aria-label="Email subscription"
-            />
+            <input class="email" type="email" placeholder="Enter your email" aria-label="Email subscription" />
             <button class="sign-up">Sign Up</button>
           </div>
           <address>
@@ -65,11 +60,7 @@ const socialImages = [
 
         <!-- Navigation Sections -->
         <div class="footer-nav">
-          <div
-            v-for="(section, index) in footerSections"
-            :key="index"
-            class="footer-section"
-          >
+          <div v-for="(section, index) in footerSections" :key="index" class="footer-section">
             <h4>{{ section.title }}</h4>
             <ul>
               <li v-for="(link, linkIndex) in section.links" :key="linkIndex">
@@ -85,21 +76,12 @@ const socialImages = [
     <div class="social">
       <div class="copyright">© {{ new Date().getFullYear() }} All Rights Reserved</div>
       <div class="social-icons">
-        <template v-for="(image, index) in socialImages" :key="index">
-          <a
-            v-if="image.link"
-            :href="image.link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <div v-for="(image, index) in socialImages" :key="index">
+          <a v-if="image.link" :href="image.link" target="_blank" rel="noopener noreferrer">
             <img :src="image.src" :alt="image.alt" />
           </a>
-          <img
-            v-else
-            :src="image.src"
-            :alt="image.alt"
-          />
-        </template>
+          <img v-else :src="image.src" :alt="image.alt" />
+        </div>
       </div>
     </div>
   </footer>
@@ -168,9 +150,7 @@ $newsletter-padding-mobile: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
-    &:hover {
-      background-color: darken($red, 10%);
-    }
+    @include darken_bg_on_hover($red);
   }
 }
 
