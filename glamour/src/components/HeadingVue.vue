@@ -14,7 +14,7 @@ const props = defineProps({
   }
 })
 
-{/* <HeadingVue heading='...' /> */ }
+{/* <heading-vue heading='...' /> */ }
 
 const devidedHeading = computed(() => {
   return {
