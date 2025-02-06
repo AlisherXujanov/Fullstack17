@@ -8,7 +8,6 @@ import ShopItems from '@/components/products/shopList/ShopItems.vue'
 <template>
   <div>
     <HeadingVue heading="Shop List" path="Home . Pages . Shop List" />
-
     <ShopItems />
   </div>
 </template>

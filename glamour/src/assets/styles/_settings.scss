@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // ==============================================================
 $violet: #7E33E0;
 $violet-light: #F1F0FF;
@@ -78,7 +80,7 @@ $xx-large: 1525px;
         right: 100%;
         z-index: 0;
         border-radius: inherit;
-        background: darken($color, $percent);
+        background: color.adjust($color, $lightness: -$percent);
     }
 
     &:hover::before {
