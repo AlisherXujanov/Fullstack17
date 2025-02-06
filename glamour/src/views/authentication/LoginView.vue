@@ -65,6 +65,6 @@ form {
     width: 544px;
     padding: 50px;
     margin: 20px auto;
-    box-shadow: 0 8px 16px $darker-violet;
+    box-shadow: 0 8px 16px $violet-dark;
 }
 </style>

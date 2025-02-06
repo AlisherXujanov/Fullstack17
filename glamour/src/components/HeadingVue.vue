@@ -28,6 +28,6 @@ defineProps({
 .main-heading-wrapper {
   padding: 50px 200px;
   @include flex(column, flex-start, flex-start);
-  background-color: $light-violet;
+  background-color: $violet-lighter;
 }
 </style>
