@@ -34,23 +34,26 @@ const submitForm = (e) => {
 <template>
     <div>
         <HeadingVue heading="My Account" path="Home . Pages . My Account" />
-        <form @submit.prevent="submitForm">
-            <h1>Login</h1>
-            <p>Please login using account detail bellow.</p>
-            <div class="form-control">
-                <label for="email">Email</label>
-                <input type="email" id="email" v-model="form.email" placeholder="Email" required />
+        <form @submit.prevent="submitForm" class="form-wrapper text-center">
+            <div class="">
+                <h1>Login</h1>
+                <p>Please login using account detail bellow.</p>
             </div>
-            <div class="form-control">
-                <label for="password">Password</label>
-                <input type="password" id="password" v-model="form.password" placeholder="Password" required />
+            <div class="mb-3">
+                <input class="form-control" type="email" id="email" v-model="form.email" placeholder="Email" required />
             </div>
-            <div class="form-control">
-                <p>Forgot your password?</p>
+            <div class="mb-3">
+                <input class="form-control" type="password" id="password" v-model="form.password" placeholder="Password"
+                    required />
             </div>
-            <div class="form-control">
-                <button @keyup.enter="submitForm">Sign In</button>
-                <p>Don’t have an Account? Create account</p>
+            <div class="mb-3 form-text">
+                <a href="#" class="text-decoration-none">Forgot your password?</a>
+            </div>
+            <div class="mb-3 ">
+                <button @keyup.enter="submitForm" class="btn btn-primary">Sign In</button> <br>
+                <p class="form-text">Don’t have an Account?
+                    <a href="#" class="text-decoration-none">Create account</a>
+                </p>
             </div>
         </form>
     </div>

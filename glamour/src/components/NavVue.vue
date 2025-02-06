@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { ref, computed } from 'vue';
-
+import { AkSearch } from '@kalimahapps/vue-icons';
 let search = ref('')
 
 
@@ -53,7 +53,9 @@ const filteredNames = computed(() => {
       <div class="right">
         <div class="searchbar">
           <input type="search" v-model="search" placeholder="Search for products">
-          <button>🔍</button>
+          <button>
+            <AkSearch  />
+          </button>
           <ul v-if="search.length > 0">
             <li v-for="name in filteredNames" :key="name">
               {{ name }}
@@ -101,6 +103,8 @@ nav {
       a {
         margin-right: 20px;
         padding: 10px;
+        text-decoration: none;
+        color: $dark-blue;
 
         &.active {
           color: $red;
