@@ -11,7 +11,9 @@ export function useAuth() {
   onMounted(() => {
     unsubscribe = onAuthStateChanged(auth, (u) => {
       user.value = u
-      isLoading.value = false
+      setTimeout(() => {
+        isLoading.value = false
+      }, 2000)
     })
   })
 
