@@ -26,7 +26,9 @@ const submitForm = async (e) => {
                 type: toast.TYPE.SUCCESS,
                 theme: toast.THEME.DARK,
             });
-            router.push('/') // Redirect to home page after login
+            setTimeout(() => {
+                router.push('/') // Redirect to home page after login
+            }, 2000)
         } catch (err) {
             if (err.code == 'auth/invalid-credential') {
                 toast("Invalid credentials", {
