@@ -22,17 +22,20 @@ const submitForm = async (e) => {
         try {
             await signInWithEmailAndPassword(auth, form.email, form.password)
             toast("Logged in successfully", {
-                autoClose: 1000,
-                type:toast.TYPE.SUCCESS,
+                autoClose: 2000,
+                type: toast.TYPE.SUCCESS,
                 theme: toast.THEME.DARK,
             });
             router.push('/') // Redirect to home page after login
         } catch (err) {
-            toast(err.message, {
-                autoClose: 1000,
-                type: toast.TYPE.ERROR,
-                theme: toast.THEME.DARK,
-            });
+            if (err.code == 'auth/invalid-credential') {
+                toast("Invalid credentials", {
+                    autoClose: 2000,
+                    type: toast.TYPE.ERROR,
+                    theme: toast.THEME.DARK,
+                });
+            }
+
         }
     }
     e.target.reset()

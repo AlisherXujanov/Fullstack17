@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { auth } from '@/firebase/config'
 import HomeView from '../views/HomeView.vue'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +23,7 @@ const router = createRouter({
       path: '/products',
       name: 'products',
       component: () => import('../views/ProductsView.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/blog',
@@ -31,11 +34,13 @@ const router = createRouter({
       path: '/shop',
       name: 'shop',
       component: () => import('../views/ShopView.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/contact',
       name: 'contact',
       component: () => import('../views/ContactView.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/login',
@@ -48,6 +53,20 @@ const router = createRouter({
       component: () => import('../views/authentication/RegistrationView.vue'),
     },
   ],
+})
+
+
+// Navigation guard
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+
+  onAuthStateChanged(auth, (user) => {
+    if (requiresAuth && !user) {
+      next('/login')
+    } else {
+      next()
+    }
+  })
 })
 
 export default router
