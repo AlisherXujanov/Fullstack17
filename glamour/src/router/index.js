@@ -3,6 +3,30 @@ import { auth } from '@/firebase/config'
 import HomeView from '../views/HomeView.vue'
 import { onAuthStateChanged } from 'firebase/auth'
 
+
+
+const META_URLS = [
+  {
+    path: '/products',
+    name: 'products',
+    component: () => import('../views/ProductsView.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/shop',
+    name: 'shop',
+    component: () => import('../views/ShopView.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: () => import('../views/ContactView.vue'),
+    meta: { requiresAuth: true },
+  },
+]
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,27 +44,9 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/products',
-      name: 'products',
-      component: () => import('../views/ProductsView.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
       path: '/blog',
       name: 'blog',
       component: () => import('../views/BlogView.vue'),
-    },
-    {
-      path: '/shop',
-      name: 'shop',
-      component: () => import('../views/ShopView.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: () => import('../views/ContactView.vue'),
-      meta: { requiresAuth: true },
     },
     {
       path: '/login',
@@ -52,6 +58,7 @@ const router = createRouter({
       name: 'registration',
       component: () => import('../views/authentication/RegistrationView.vue'),
     },
+    ...META_URLS,
   ],
 })
 
