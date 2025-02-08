@@ -1,4 +1,6 @@
 # Simple Firebase Authentication Guide for Vue.js
+https://firebase.google.com/docs/auth/web/firebaseui
+
 
 ## Step 1: Project Setup
 
