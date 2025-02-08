@@ -15,9 +15,9 @@ coverage
 *.local
 
 # Dependency directories
-src/firebase/config.js
-firebase/config.js
-
+**/firebase/config.js
+**/config.js
+**/config.ts
 
 /cypress/videos/
 /cypress/screenshots/
