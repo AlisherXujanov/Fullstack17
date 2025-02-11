@@ -253,6 +253,66 @@ const handleLogout = async () => {
 }
 ```
 
+## Step 7: Display User Information
+
+Create a new component `src/components/UserProfile.vue`:
+
+```vue
+<script setup>
+import { useAuth } from '@/composables/useAuth'
+import { handleLogout } from '@/composables/useAuth'
+
+const { user } = useAuth()
+</script>
+
+<template>
+  <div class="user-profile">
+    <h3>{{ user.displayName }}</h3>
+    <p>{{ user.email }}</p>
+    <img :src="user.photoURL" alt="User Avatar" width="100" height="100">
+    <button @click="handleLogout">Logout</button>
+  </div>
+</template>
+```
+
+
+## Step 8: Reset Password
+NOTE: This feature requires the user to have a verified email address.
+Create a new component `src/views/authentication/ResetPasswordView.vue`:
+```vue
+<script setup>
+import { auth } from '@/firebase/config'
+import { sendPasswordResetEmail } from 'firebase/auth'
+
+const handleResetPassword = async () => {
+  try {
+    await sendPasswordResetEmail(auth, email.value)
+    console.log('Password reset email sent')
+  } catch (error) {
+    console.error('Password reset error:', error)
+  }
+}
+</script>
+
+<template>
+  <div class="reset-password">
+    <h2>Reset Password</h2>
+    <form @submit.prevent="handleResetPassword">
+      <div class="form-group">
+        <input 
+          type="email" 
+          v-model="email" 
+          placeholder="Email"
+          required
+        >
+      </div>
+      <button type="submit">Reset Password</button>
+    </form>
+  </div>  
+</template>
+```
+
+
 ## Common Issues & Solutions
 
 1. **Firebase Configuration Error**
