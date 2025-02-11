@@ -41,7 +41,7 @@ const { _, isLoading } = useAuth()
   width: 100%;
   z-index: 999999;
   backdrop-filter: blur(10px);
-  background-color: rgb(0,0,0, 0.5);
+  background-color: rgb(0, 0, 0, 0.5);
   @include flex();
 }
 </style>

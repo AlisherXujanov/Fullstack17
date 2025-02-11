@@ -9,6 +9,7 @@ import {
     signInWithPopup
 } from 'firebase/auth'
 import { auth } from '@/firebase/config'
+import { DeGoogleOriginal } from '@kalimahapps/vue-icons';
 
 
 const router = useRouter()
@@ -45,6 +46,23 @@ const submitForm = async (e) => {
     form.password = ''
 }
 
+const handleGoogleLogin = async () => {
+    try {
+        const provider = new GoogleAuthProvider()
+        await signInWithPopup(auth, provider)
+        toast("Logged in successfully", {
+            autoClose: 2000,
+            type: toast.TYPE.SUCCESS,
+            theme: toast.THEME.DARK,
+        });
+        setTimeout(() => {
+            router.push('/') // Redirect to home page after login
+        }, 2000)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 
 </script>
 
@@ -69,6 +87,11 @@ const submitForm = async (e) => {
             </div>
             <div class="mb-3 ">
                 <button @keyup.enter="submitForm" class="btn btn-primary">Sign In</button> <br>
+
+                <button type="button" @click="handleGoogleLogin" class="btn my-3 btn-sm btn-outline-dark">
+                    <DeGoogleOriginal style="width: 30px; height: 30px;" />
+                    Sign in with Google
+                </button>
                 <p class="form-text">Don’t have an Account?
                     <router-link to="/registration" class="text-decoration-none">Create account</router-link>
                 </p>
