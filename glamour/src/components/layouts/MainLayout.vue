@@ -17,9 +17,7 @@ const { _, isLoading } = useAuth()
     </header>
 
     <main v-if="isLoading">
-      <div class="loading-spinner">
         <SpinnerVue />
-      </div>
     </main>
     <main>
       <RouterView />
@@ -33,15 +31,4 @@ const { _, isLoading } = useAuth()
 
 
 <style lang="scss">
-.loading-spinner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  z-index: 999999;
-  backdrop-filter: blur(10px);
-  background-color: rgb(0, 0, 0, 0.5);
-  @include flex();
-}
 </style>
