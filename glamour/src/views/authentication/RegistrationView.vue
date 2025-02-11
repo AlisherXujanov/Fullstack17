@@ -55,7 +55,7 @@ const submitForm = (e) => {
 
 <template>
     <div>
-        <heading-vue heading="My Account" path="Home . Pages . Registration" />
+        <heading-vue heading="My Account" path="Home . Authentication . Registration" />
         <form @submit.prevent="submitForm" class="form-wrapper text-center">
             <div class="">
                 <h1>Create account</h1>

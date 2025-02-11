@@ -257,7 +257,7 @@ const handleLogout = async () => {
 
 Create a new component `src/components/UserProfile.vue`:
 
-```vue
+```js
 <script setup>
 import { useAuth } from '@/composables/useAuth'
 import { handleLogout } from '@/composables/useAuth'
@@ -279,7 +279,8 @@ const { user } = useAuth()
 ## Step 8: Reset Password
 NOTE: This feature requires the user to have a verified email address.
 Create a new component `src/views/authentication/ResetPasswordView.vue`:
-```vue
+
+```js
 <script setup>
 import { auth } from '@/firebase/config'
 import { sendPasswordResetEmail } from 'firebase/auth'

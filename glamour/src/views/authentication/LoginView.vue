@@ -69,7 +69,8 @@ const handleGoogleLogin = async () => {
 
 <template>
     <div>
-        <heading-vue heading="My Account" path="Home . Pages . Login" />
+        <heading-vue heading="My Account" path="Home . Authentication . Login" />
+
         <form @submit.prevent="submitForm" class="form-wrapper text-center">
             <div class="">
                 <h1>Login</h1>
@@ -83,7 +84,7 @@ const handleGoogleLogin = async () => {
                     required />
             </div>
             <div class="mb-3 form-text">
-                <router-link to="#" class="text-decoration-none">Forgot your password?</router-link>
+                <router-link to="/reset-password" class="text-decoration-none">Forgot your password?</router-link>
             </div>
             <div class="mb-3 ">
                 <button @keyup.enter="submitForm" class="btn btn-primary">Sign In</button> <br>
