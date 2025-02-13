@@ -1,6 +1,10 @@
 <script setup>
-import FooterImg from "@/assets/images/FooterImg/footerImg.png"
+import ContactImg from "@/assets/images/FooterImg/contact-img.png"
 import HeadingVue from '@/components/HeadingVue.vue'
+
+const submitForm = (e) => {
+    console.log('Form submitted')
+}
 </script>
 
 <template>
@@ -46,6 +50,31 @@ import HeadingVue from '@/components/HeadingVue.vue'
                 </div>
             </div>
         </div>
+
+        <div class="contact-form">
+            <div class="left">
+                <h2>Get In Touch</h2>
+                <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae aliquid velit minus architecto voluptas quos alias cupiditate accusantium qui atque!</p>
+                <form @submit.prevent="submitForm">
+                    <div>
+                        <input id="contact-name" type="text" placeholder="First name*" required>
+                        <input id="contact-email" type="email" placeholder="Your email" required>
+                    </div>
+                    <div>
+                        <input id="contact-subject" type="text" placeholder="Subject*">
+                    </div>
+                    <div>
+                        <textarea id="contact-message" placeholder="Type your message" rows="8"></textarea>
+                    </div>
+                    <div>
+                        <button>Send Mail</button>
+                    </div>
+                </form>
+            </div>
+            <div class="right">
+                <img :src="ContactImg" alt="Contact Image">
+            </div>
+        </div>
     </div>
 </template>
 
@@ -62,6 +91,7 @@ import HeadingVue from '@/components/HeadingVue.vue'
     h2 {
         color: $dark-blue;
         margin-bottom: 20px;
+        font-weight: 700;
     }
 
     p {
@@ -127,11 +157,48 @@ import HeadingVue from '@/components/HeadingVue.vue'
         }
     }
 
-    // ...
+    .contact-form {
+        padding: 50px 200px;
+        @include grid(2, 1fr, 80px);
+
+        .left {
+            form {
+                div {
+                    margin-bottom: 20px;
+                }
+                div:first-child {
+                    @include grid(2, 1fr, 10px);
+                }
+                textarea,
+                input {
+                    width: 100%;
+                    background-color: $light;
+                    border: 1px solid $text-color-transparent;
+                    border-radius: 5px;
+                    padding: 10px 20px;
+                }
+                button {
+                    padding: 10px 35px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    color: $light;
+                    background-color: $red;
+                }
+            }
+        }
+        .right {
+            img {
+                transform: scale(1.1)
+            }
+        }
+    }
 
     @media (max-width: $xx-large) {
         .contact-details {
             padding: 50px 100px;
+        }
+        .contact-form {
+            // TODO: JONIK ...
         }
     }
 
