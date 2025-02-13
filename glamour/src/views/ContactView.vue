@@ -1,236 +1,167 @@
 <script setup>
-import HeadingVue from '@/components/HeadingVue.vue'
 import FooterImg from "@/assets/images/FooterImg/footerImg.png"
+import HeadingVue from '@/components/HeadingVue.vue'
 </script>
 
 <template>
-    <div>
+    <div class="contacts-page-wrapper">
         <heading-vue heading="Contact" path="Contact . Pages . Contact page" />
 
-        <div class="center">
+        <div class="contact-details">
             <div class="left">
-                <h3>Information About us</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis neque
-                    ultrices mattis aliquam, malesuada diam est. Malesuada sem tristique
-                    amet erat vitae eget dolor lobortis. Accumsan faucibus vitae lobortis quis bibendum quam.
-                </p>
-
-                <div class="krugi">
-                    <span class="blue"></span>
-                    <span class="pink"></span>
-                    <span class="sky-blue"></span>
+                <h2>Information About us</h2>
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis neque ultrices
+                    mattis aliquam,
+                    malesuada diam est. Malesuada sem tristique amet erat vitae eget dolor lobortis. Accumsan faucibus
+                    vitae lobortis quis bibendum quam.</p>
+                <div class="colors">
+                    <span class="indigo"></span>
+                    <span class="red"></span>
+                    <span class="cyan"></span>
                 </div>
-
-                <h3 class="h3-2">Get In Touch</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis
-                    neque ultrices tristique amet erat vitae eget dolor los vitae
-                    lobortis quis bibendum quam.
-                </p>
-
-                <form @submit.prevent="submitForm" class="form-wrapper">
-                    <div class="form-control">
-                        <input type="name" placeholder="Your Name" v-model="form"> <input type="email"
-                            placeholder="Your E-mail" v-model="form">
-                    </div>
-                    <div class="form-control">
-                        <input type="text" placeholder="Subject*" v-model="form">
-                    </div>
-
-                    <textarea name="" id="" cols="42" rows="4" placeholder="Type Your Messahe*"></textarea> <br>
-                    <button>Send Mail</button>
-                </form>
-
             </div>
             <div class="right">
-                <h3>Contact Way</h3>
-                <div class="ps">
-                    <p class="p-tl">
-                        Tel: 877-67-88-99 <br>
-                        E-Mail: shop@store.com
-                    </p>
-                    <p class="p-tr">
-                        Support Forum <br>
-                        For over 24hr
-                    </p>
-                    <p class="p-bl">
-                        20 Margaret st, London <br>
-                        Great britain, 3NM98-LK
-                    </p>
-                    <p class="p-br">
-                        Free standard shipping <br>
-                        on all orders.
-                    </p>
+                <h2>Contact Way</h2>
+                <div class="different-contacts">
+                    <div class="contact-way">
+                        <span class="indigo"></span>
+                        <p class="text-muted">
+                            Tel:877 676767
+                            <br>
+                            E-Mail: shop@store.com
+                        </p>
+                    </div>
+                    <div class="contact-way">
+                        <span class="red"></span>
+                        <p class="text-muted">Support Forum <br> For over 24hr</p>
+                    </div>
+                    <div class="contact-way">
+                        <span class="orange"></span>
+                        <p class="text-muted">20 Margaret st, London <br> Great britain, 3NM98-LK</p>
+                    </div>
+                    <div class="contact-way">
+                        <span class="green"></span>
+                        <p class="text-muted">Free standard shipping on all orders.</p>
+                    </div>
                 </div>
-                <img :src="FooterImg">
             </div>
         </div>
     </div>
 </template>
 
+
 <style lang="scss" scoped>
-.center {
-    padding: 100px 0;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 15.5%;
+.contacts-page-wrapper {
+    @mixin circle($size) {
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    h2 {
+        color: $dark-blue;
+        margin-bottom: 20px;
+    }
 
     p {
-        font-size: 13px;
+        color: $dark-blue;
+        margin-bottom: 20px;
     }
 
-    .left {
-        width: 40%;
+    .contact-details {
+        padding: 50px 200px;
+        @include grid(2, 1fr, 80px);
 
-        form {
+        .left {
+            .colors {
+                @include flex($justify: flex-start);
 
-            div {
-                border: none;
-                display: flex;
-                justify-content: space-between;
-                margin-left: -12px;
+                span {
+                    @include circle(25px);
 
-                input {
-                    width: 48%;
-                    padding: 5px;
-                    font-size: 12px;
-                    border: 1px solid gray;
-                    border-radius: 3px;
-                    background-color: transparent;
+                    &.indigo {
+                        background-color: $violet-blue;
+                    }
+
+                    &.red {
+                        background-color: $magenta;
+                    }
+
+                    &.cyan {
+                        background-color: $cyan;
+                    }
                 }
             }
-
-            textarea {
-                width: 93%;
-                padding: 10px;
-                font-size: 12px;
-                border: 1px solid gray;
-                border-radius: 3px;
-                background-color: transparent;
-                margin-top: 8px;
-                margin-bottom: 10px;
-            }
-
-            button {
-                padding: 5px 30px;
-                background-color: $red;
-                color: white;
-                border: none;
-                font-size: 12px;
-                border-radius: 3px;
-                cursor: pointer;
-            }
         }
 
-        .krugi {
-            margin-top: 30px;
+        .right {
+            .different-contacts {
+                @include grid(2, 1fr, 20px);
 
-            span {
-                display: inline-block;
-                width: 25px;
-                height: 25px;
-                border-radius: 50%;
-                margin-right: 5px;
+                .contact-way {
+                    @include grid(2, 1fr, 0);
+                    grid-template-columns: 70px 1fr;
+
+                    span {
+                        @include circle(50px);
+
+                        &.indigo {
+                            background-color: $violet-blue;
+                        }
+
+                        &.red {
+                            background-color: $magenta;
+                        }
+
+                        &.orange {
+                            background-color: $orange;
+                        }
+
+                        &.green {
+                            background-color: $green-light;
+                        }
+                    }
+                }
             }
-
-            .blue {
-                background-color: $contacts-left-1;
-            }
-
-            .pink {
-                background-color: $contacts-left-2;
-            }
-
-            .sky-blue {
-                background-color: $contacts-left-3;
-            }
-        }
-
-        .h3-2 {
-            margin-top: 100px;
         }
     }
 
-    .right {
-        position: relative;
+    // ...
 
-        h3 {
-            margin-left: -41px;
+    @media (max-width: $xx-large) {
+        .contact-details {
+            padding: 50px 100px;
         }
+    }
 
-        .ps {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            position: relative;
-
-            p {
-                margin-right: 60px;
-            }
-
-
-
-            .p-tl:before {
-                content: '';
-                display: inline-block;
-                width: 33px;
-                height: 33px;
-                background-color: $violet-blue;
-                border-radius: 50%;
-                margin-right: 10px;
-
-                position: absolute;
-                top: 4px;
-                left: -40px;
-            }
-
-            .p-tr:before {
-                content: '';
-                display: inline-block;
-                width: 33px;
-                height: 33px;
-                background-color: $red;
-                border-radius: 50%;
-                margin-right: 10px;
-
-                position: absolute;
-                top: 4px;
-                right: 198px;
-            }
-
-            .p-bl:before {
-                content: '';
-                display: inline-block;
-                width: 33px;
-                height: 33px;
-                background-color: $yellow;
-                border-radius: 50%;
-                margin-right: 10px;
-
-                position: absolute;
-                bottom: 17px;
-                left: -40px;
-            }
-
-            .p-br:before {
-                content: '';
-                display: inline-block;
-                width: 33px;
-                height: 33px;
-                background-color: $green;
-                border-radius: 50%;
-                margin-right: 10px;
-
-                position: absolute;
-                bottom: 17px;
-                right: 198px;
-            }
+    @media (max-width: $x-large) {
+        .contact-details {
+            grid-template-columns: 1fr 2fr;
         }
+    }
 
-        img {
-            width: 450px;
-            position: absolute;
-            right: 95px;
-            top: 250px;
+    @media (max-width: $large) {
+        .contact-details {
+            padding: 50px 10px 50px 100px;
+            gap: 60px;
+        }
+    }
+
+    @media (max-width: $medium) {
+        .contact-details {
+            padding: 30px;
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: $small) {
+        .contact-details {
+            .right {
+                .different-contacts {
+                    grid-template-columns: 1fr;
+                }
+            }
         }
     }
 }
