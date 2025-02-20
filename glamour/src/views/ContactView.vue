@@ -54,7 +54,8 @@ const submitForm = (e) => {
         <div class="contact-form">
             <div class="left">
                 <h2>Get In Touch</h2>
-                <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae aliquid velit minus architecto voluptas quos alias cupiditate accusantium qui atque!</p>
+                <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae aliquid velit
+                    minus architecto voluptas quos alias cupiditate accusantium qui atque!</p>
                 <form @submit.prevent="submitForm">
                     <div>
                         <input id="contact-name" type="text" placeholder="First name*" required>
@@ -166,9 +167,11 @@ const submitForm = (e) => {
                 div {
                     margin-bottom: 20px;
                 }
+
                 div:first-child {
                     @include grid(2, 1fr, 10px);
                 }
+
                 textarea,
                 input {
                     width: 100%;
@@ -177,6 +180,7 @@ const submitForm = (e) => {
                     border-radius: 5px;
                     padding: 10px 20px;
                 }
+
                 button {
                     padding: 10px 35px;
                     border-radius: 5px;
@@ -186,6 +190,7 @@ const submitForm = (e) => {
                 }
             }
         }
+
         .right {
             img {
                 transform: scale(1.1)
@@ -197,6 +202,7 @@ const submitForm = (e) => {
         .contact-details {
             padding: 50px 100px;
         }
+
         .contact-form {
             // TODO: JONIK ...
         }
