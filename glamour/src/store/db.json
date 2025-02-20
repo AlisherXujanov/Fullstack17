@@ -8,6 +8,15 @@
             "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid ipsam sit in omnis? Commodi unde laudantium asperiores et quos suscipit.",
             "colors": ["orange", "red", "blue"],
             "stars": 4
+        },
+        {
+            "id": 2,
+            "title": "Hello world",
+            "price": 100,
+            "discount": 0.3,
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid ipsam sit in omnis? Commodi unde laudantium asperiores et quos suscipit.",
+            "colors": ["red", "blue", "orange"],
+            "stars": 3
         }
     ]
 }

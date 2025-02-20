@@ -73,6 +73,15 @@ $xx-large: 1525px;
     gap: $gap;
 }
 
+
+@mixin circle($size) {
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+
 // ======================================================================
 @mixin darken_bg_on_hover($color, $percent: 20%) {
     position: relative;
