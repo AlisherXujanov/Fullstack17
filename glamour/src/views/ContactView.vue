@@ -54,8 +54,8 @@ const submitForm = (e) => {
     <div class="contact-form">
       <div class="left">
         <h2>Get In Touch</h2>
-        <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae aliquid velit
-          minus architecto voluptas quos alias cupiditate accusantium qui atque!</p>
+        <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae aliquid velit minus
+          architecto voluptas quos alias cupiditate accusantium qui atque!</p>
         <form @submit.prevent="submitForm">
           <div>
             <input id="contact-name" type="text" placeholder="First name*" required>
@@ -152,7 +152,7 @@ const submitForm = (e) => {
   }
 
   .contact-form {
-    padding: 50px 200px;
+    padding: 50px 50px 50px 100px;
     @include grid(2, 1fr, 80px);
 
     .left {
@@ -183,27 +183,28 @@ const submitForm = (e) => {
         }
       }
     }
-
-    .right {
-      img {
-        transform: scale(1.1)
-      }
-    }
   }
 
   @media (max-width: $xx-large) {
     .contact-details {
       padding: 50px 100px;
     }
-
-    .contact-form {
-      // TODO: JONIK ...
-    }
   }
 
   @media (max-width: $x-large) {
     .contact-details {
       grid-template-columns: 1fr 2fr;
+    }
+
+    .contact-form {
+      padding: 50px 30px 50px 100px;
+      @include grid(2, 1fr, 50px);
+
+      .right {
+        img {
+          width: 650px;
+        }
+      }
     }
   }
 
@@ -212,12 +213,35 @@ const submitForm = (e) => {
       padding: 50px 10px 50px 100px;
       gap: 60px;
     }
+
+    .contact-form {
+      padding: 50px 0px 100px 100px;
+      @include grid(2, 1fr, 50px);
+
+      .right {
+        img {
+          width: 550px;
+        }
+      }
+    }
   }
 
   @media (max-width: $medium) {
     .contact-details {
       padding: 30px;
       grid-template-columns: 1fr;
+    }
+
+    .contact-form {
+      padding: 30px;
+      @include grid(1, 1fr, 50px);
+      @include flex(center, center);
+
+      .right {
+        img {
+          scale: 1;
+        }
+      }
     }
   }
 
@@ -226,6 +250,15 @@ const submitForm = (e) => {
       .right {
         .different-contacts {
           grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    .contact-form {
+
+      .right {
+        img {
+          scale: 0.8;
         }
       }
     }

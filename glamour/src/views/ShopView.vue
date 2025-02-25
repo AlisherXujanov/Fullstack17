@@ -9,9 +9,6 @@ import { BxSearchAlt } from '@kalimahapps/vue-icons'
 import { LuShoppingCart } from '@kalimahapps/vue-icons'
 import { BxHeart } from '@kalimahapps/vue-icons'
 
-
-
-
 const store = reactive({
     items: [],
 })
