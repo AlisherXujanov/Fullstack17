@@ -17,7 +17,7 @@ const { _, isLoading } = useAuth()
     </header>
 
     <main v-if="isLoading">
-        <SpinnerVue />
+      <SpinnerVue />
     </main>
     <main>
       <RouterView />
@@ -30,5 +30,4 @@ const { _, isLoading } = useAuth()
 </template>
 
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
