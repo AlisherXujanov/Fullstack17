@@ -55,7 +55,18 @@ function toggleLike(itemID) {
     item.liked = !item.liked
 }
 
-
+function sortItemsBy(e) {
+    switch (e.target.value) {
+        case "low-price":
+            store.items.sort((a, b) => a.price - b.price)
+            break
+        case "high-price":
+            store.items.sort((a, b) => b.price - a.price)
+            break
+        default:
+            store.items.sort((a, b) => a.id - b.id)
+    }
+}
 
 </script>
 
@@ -75,12 +86,12 @@ function toggleLike(itemID) {
 
                 <div class="sort-by">
                     <p>Sort By: </p>
-                    <select>
-                        <option>Best Match</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Newest</option>
-                        <option>Oldest</option>
+                    <select @change="sortItemsBy">
+                        <option value="">Best Match</option>
+                        <option value="low-price">Price: Low to High</option>
+                        <option value="high-price">Price: High to Low</option>
+                        <option value="">Newest</option>
+                        <option value="">Oldest</option>
                     </select>
                 </div>
 
