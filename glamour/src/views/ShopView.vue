@@ -1,11 +1,12 @@
 <script setup>
-import { reactive, onMounted, ref } from 'vue'
-import HeadingVue from '@/components/HeadingVue.vue'
+import { reactive, onMounted, ref, defineAsyncComponent } from 'vue'
 import { BASE_URL } from '@/store'
 import axios from 'axios'
-import SpinnerVue from '@/components/SpinnerVue.vue'
-import ItemsWrapper from '@/components/products/ItemsWrapper.vue'
+import HeadingVue from '@/components/HeadingVue.vue'
 
+// Convert synchronous imports to async components
+const SpinnerVue = defineAsyncComponent(() => import('@/components/SpinnerVue.vue'))
+const ItemsWrapper = defineAsyncComponent(() => import('@/components/products/ItemsWrapper.vue'))
 
 
 const store = reactive({
@@ -54,10 +55,7 @@ function toggleLike(itemID) {
                 <SpinnerVue />
             </div>
             <div v-else>
-                <items-wrapper
-                    :items="store.items"
-                    @toggle-like="toggleLike"
-                />
+                <items-wrapper :items="store.items" @toggle-like="toggleLike" />
             </div>
         </div>
     </div>

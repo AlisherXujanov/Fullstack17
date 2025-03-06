@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref, computed, inject } from 'vue'
 import { AkSearch } from '@kalimahapps/vue-icons'
 import { MdOutlinedLanguage } from '@kalimahapps/vue-icons'
 import { ReAccountPinCircleFill } from '@kalimahapps/vue-icons'
@@ -8,6 +8,7 @@ import { LuShoppingCart } from '@kalimahapps/vue-icons'
 import { auth } from '@/firebase/config'
 import { useAuth } from '@/composables/useAuth.js'
 import { MiLogout } from '@kalimahapps/vue-icons'
+import { AUTH } from '@/store';
 
 const router = useRouter()
 const search = ref('')
@@ -18,7 +19,7 @@ const testUsers = [
   "Aziz", "Bemiyya", "Abu-bubu", "Donik", "Jonik", "Onur",
 ]
 
-const { user, isLoading } = useAuth()
+const { user, isLoading } = inject(AUTH)
 
 const handleLogout = async () => {
   try {

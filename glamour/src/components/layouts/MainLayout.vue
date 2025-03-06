@@ -4,8 +4,13 @@ import FooterVue from '../FooterVue.vue'
 import NavVue from '../NavVue.vue'
 import { useAuth } from '@/composables/useAuth.js'
 import SpinnerVue from "@/components/SpinnerVue.vue";
+import { provide } from 'vue'
+import { AUTH } from '@/store';
 
-const { _, isLoading } = useAuth()
+const { user, isLoading } = useAuth()
+
+// provide("KEY", "VALUE")
+provide(AUTH, { user, isLoading })
 
 </script>
 
