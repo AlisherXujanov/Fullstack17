@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, defineAsyncComponent, provide } from 'vue'
+import { reactive, onMounted, ref, defineAsyncComponent, provide, onBeforeUnmount, watch } from 'vue'
 import { BASE_URL } from '@/store'
 import axios from 'axios'
 import HeadingVue from '@/components/HeadingVue.vue'
@@ -36,12 +36,17 @@ async function getItems() {
 
 function toggleGridItems(bool) {
     gridItems.value = bool
+    console.log("gridItemsOnShop: ", gridItems.value)
 }
 provide("gridItems", gridItems.value)
 
 
 onMounted(() => {
     getItems()
+    gridItems.value = localStorage.getItem("gridItemsOnShop") || false
+})
+onBeforeUnmount(() => {
+    localStorage.setItem("gridItemsOnShop", gridItems.value)
 })
 
 
@@ -80,9 +85,10 @@ function toggleLike(itemID) {
                 </div>
 
                 <div class="view">
-                    <p>View:
-                        <span><BsGridFill/></span>
-                        <span><AnOutlinedUnorderedList/></span>
+                    <p>
+                        View:
+                        <span @click="toggleGridItems(true)"><BsGridFill/></span>
+                        <span @click="toggleGridItems(false)"><AnOutlinedUnorderedList/></span>
                     </p>
                 </div>
             </div>
@@ -113,11 +119,30 @@ function toggleLike(itemID) {
         input {
             width: 70px;
             padding: 10px;
+            border-radius: 10px;
         }
         &>div {
             display: flex;
             align-items: center;
             justify-content: center;
+
+            &.view {
+                p {
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    gap: 8px;
+
+                    span {
+                        svg {
+                            cursor: pointer;
+                            transform: scale(1.3);
+                            position: relative;
+                            bottom: 3px;
+                        }
+                    }
+                }
+            }
         }
         select {
             position: relative;
