@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, defineAsyncComponent } from 'vue'
+import { reactive, onMounted, ref, defineAsyncComponent, provide } from 'vue'
 import { BASE_URL } from '@/store'
 import axios from 'axios'
 import HeadingVue from '@/components/HeadingVue.vue'
@@ -8,11 +8,14 @@ import HeadingVue from '@/components/HeadingVue.vue'
 const SpinnerVue = defineAsyncComponent(() => import('@/components/SpinnerVue.vue'))
 const ItemsWrapper = defineAsyncComponent(() => import('@/components/products/ItemsWrapper.vue'))
 
+import { AnOutlinedUnorderedList } from '@kalimahapps/vue-icons'
+import { BsGridFill } from '@kalimahapps/vue-icons'
 
 const store = reactive({
     items: [],
 })
 const loaded = ref(true) // Загружены ли данные
+const gridItems = ref(false)
 
 async function getItems() {
     loaded.value = false
@@ -31,6 +34,12 @@ async function getItems() {
     }
 }
 
+function toggleGridItems(bool) {
+    gridItems.value = bool
+}
+provide("gridItems", gridItems.value)
+
+
 onMounted(() => {
     getItems()
 })
@@ -42,26 +51,81 @@ function toggleLike(itemID) {
 }
 
 
+
 </script>
 
 <template>
     <div>
         <heading-vue heading="Shop" path="Shop . Pages . Shop" />
 
-        <div class="filters-wrapper"></div>
+        <div class="filters-wrapper">
+            <div class="left">
+              <h4>Ecommerce Accessories & Fashion Item</h4>
+              <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div class="right">
+                <div class="per-page">
+                    <p>Per page: <input id="per-page-input" type="number" min="0"></p>
+                </div>
+
+                <div class="sort-by">
+                    <p>Sort By: </p>
+                    <select>
+                        <option>Best Match</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest</option>
+                        <option>Oldest</option>
+                    </select>
+                </div>
+
+                <div class="view">
+                    <p>View:
+                        <span><BsGridFill/></span>
+                        <span><AnOutlinedUnorderedList/></span>
+                    </p>
+                </div>
+            </div>
+        </div>
 
         <div class="shop-list-items-wrapper">
             <div v-if="!loaded">
                 <SpinnerVue />
             </div>
             <div v-else>
-                <items-wrapper :items="store.items" @toggle-like="toggleLike" />
+                <items-wrapper :items="store.items" @toggle-like="toggleLike"  />
             </div>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.filters-wrapper {
+    width: 1141px;
+    margin: 20px auto;
+    padding: 20px 0;
+    @include grid(2);
+
+    .right {
+        display: flex;
+        justify-content: space-between;
+
+        input {
+            width: 70px;
+            padding: 10px;
+        }
+        &>div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        select {
+            position: relative;
+            left: 10px;
+            bottom: 8px;
+        }
+    }
+}
 .shop-list-items-wrapper {
     width: 1141px;
     margin: 0 auto;

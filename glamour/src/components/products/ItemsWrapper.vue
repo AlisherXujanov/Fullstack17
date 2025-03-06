@@ -3,7 +3,8 @@ import { AnFilledStar } from '@kalimahapps/vue-icons'
 import { BxSearchAlt } from '@kalimahapps/vue-icons'
 import { LuShoppingCart } from '@kalimahapps/vue-icons'
 import { BxHeart } from '@kalimahapps/vue-icons'
-import { BxSolidHeart } from '@kalimahapps/vue-icons';
+import { BxSolidHeart } from '@kalimahapps/vue-icons'
+import { inject } from 'vue'
 
 
 const emit = defineEmits(['toggle-like'])
@@ -11,6 +12,7 @@ const emit = defineEmits(['toggle-like'])
 defineProps({
   items: Array, // first prop
 })
+const gridItems = inject('gridItems')
 
 
 </script>
