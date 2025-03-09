@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, defineAsyncComponent, provide, onBeforeUnmount } from 'vue'
+import { reactive, onMounted, ref, defineAsyncComponent, provide, onBeforeUnmount, computed } from 'vue'
 import { BASE_URL } from '@/store'
 import axios from 'axios'
 import HeadingVue from '@/components/HeadingVue.vue'
@@ -80,6 +80,22 @@ function handlePerPage(e) {
 }
 
 
+function range(start, end = null) {
+    if (end === null) {
+        end = start
+        start = 0
+    }
+    return Array(end - start).fill().map((_, idx) => start + idx)
+    // range(10)  =>  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    // range(5, 10)  =>  [5, 6, 7, 8, 9]
+}
+
+const pagesToShow = computed(() => {
+    let x = range(1, Math.ceil(store.items?.length/store.itemsPerPage)+1)
+    console.log(x)
+    return x
+})
+
 </script>
 
 <template>
@@ -88,26 +104,21 @@ function handlePerPage(e) {
 
         <div class="filters-wrapper">
             <div class="left">
-              <h4>Ecommerce Accessories & Fashion Item</h4>
-              <p>Lorem ipsum dolor sit amet.</p>
+                <h4>Ecommerce Accessories & Fashion Item</h4>
+                <p>Lorem ipsum dolor sit amet.</p>
             </div>
+
             <div class="right">
                 <div class="per-page">
                     <p>Per page:
-                        <input
-                            id="per-page-input"
-                            type="number"
-                            min="0"
-                            :max="store.items.length"
-                            @change="handlePerPage"
-                            v-model="store.itemsPerPage"
-                        >
+                        <input id="per-page-input" type="number" min="0" :max="store.items.length"
+                            @change="handlePerPage" v-model="store.itemsPerPage">
                     </p>
                 </div>
 
                 <div class="sort-by">
                     <p>Sort By: </p>
-                    <select @change="sortItemsBy" >
+                    <select @change="sortItemsBy">
                         <option value="">Best Match</option>
                         <option value="low-price">Price: Low to High</option>
                         <option value="high-price">Price: High to Low</option>
@@ -119,10 +130,20 @@ function handlePerPage(e) {
                 <div class="view">
                     <p>
                         View:
-                        <span @click="toggleGridItems(true)"><BsGridFill/></span>
-                        <span @click="toggleGridItems(false)"><AnOutlinedUnorderedList/></span>
+                        <span @click="toggleGridItems(true)">
+                            <BsGridFill />
+                        </span>
+                        <span @click="toggleGridItems(false)">
+                            <AnOutlinedUnorderedList />
+                        </span>
                     </p>
                 </div>
+            </div>
+        </div>
+
+        <div class="paginator-wrapper" v-if="store.items.length > store.itemsPerPage">
+            <div v-for="i in pagesToShow" :key="i">
+                {{  i  }}
             </div>
         </div>
 
@@ -131,11 +152,8 @@ function handlePerPage(e) {
                 <SpinnerVue />
             </div>
             <div v-else>
-                <items-wrapper
-                    :items="store.items.slice(0, store.itemsPerPage)"
-                    :gridItems="gridItems"
-                    @toggle-like="toggleLike"
-                />
+                <items-wrapper :items="store.items.slice(0, store.itemsPerPage)" :gridItems="gridItems"
+                    @toggle-like="toggleLike" />
             </div>
         </div>
     </div>
@@ -157,6 +175,7 @@ function handlePerPage(e) {
             padding: 10px;
             border-radius: 10px;
         }
+
         &>div {
             display: flex;
             align-items: center;
@@ -180,6 +199,7 @@ function handlePerPage(e) {
                 }
             }
         }
+
         select {
             position: relative;
             left: 10px;
@@ -189,6 +209,11 @@ function handlePerPage(e) {
         }
     }
 }
+
+.paginator-wrapper {
+    @include flex();
+}
+
 .shop-list-items-wrapper {
     width: 1141px;
     margin: 0 auto;
