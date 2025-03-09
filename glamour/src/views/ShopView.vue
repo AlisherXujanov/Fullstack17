@@ -13,6 +13,7 @@ import { BsGridFill } from '@kalimahapps/vue-icons'
 
 const store = reactive({
     items: [],
+    itemsPerPage: 4
 })
 const loaded = ref(true) // Загружены ли данные
 const gridItems = ref(false)
@@ -67,6 +68,18 @@ function sortItemsBy(e) {
     }
 }
 
+function handlePerPage(e) {
+    const perPage = e.target.value
+    if (perPage > store.items.length) {
+        alert("The value is too big")
+        e.target.value = store.items.length
+    } else if (perPage < 0) {
+        alert("The value is too small")
+        e.target.value = 0
+    }
+}
+
+
 </script>
 
 <template>
@@ -80,7 +93,16 @@ function sortItemsBy(e) {
             </div>
             <div class="right">
                 <div class="per-page">
-                    <p>Per page: <input id="per-page-input" type="number" min="0"></p>
+                    <p>Per page:
+                        <input
+                            id="per-page-input"
+                            type="number"
+                            min="0"
+                            :max="store.items.length"
+                            @change="handlePerPage"
+                            v-model="store.itemsPerPage"
+                        >
+                    </p>
                 </div>
 
                 <div class="sort-by">
@@ -110,7 +132,7 @@ function sortItemsBy(e) {
             </div>
             <div v-else>
                 <items-wrapper
-                    :items="store.items"
+                    :items="store.items.slice(0, store.itemsPerPage)"
                     :gridItems="gridItems"
                     @toggle-like="toggleLike"
                 />
