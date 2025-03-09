@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, defineAsyncComponent, provide, onBeforeUnmount, watch } from 'vue'
+import { reactive, onMounted, ref, defineAsyncComponent, provide, onBeforeUnmount } from 'vue'
 import { BASE_URL } from '@/store'
 import axios from 'axios'
 import HeadingVue from '@/components/HeadingVue.vue'
@@ -38,7 +38,6 @@ function toggleGridItems(bool) {
     gridItems.value = bool
     console.log("gridItemsOnShop: ", gridItems.value)
 }
-provide("gridItems", gridItems.value)
 
 
 onMounted(() => {
@@ -86,7 +85,7 @@ function sortItemsBy(e) {
 
                 <div class="sort-by">
                     <p>Sort By: </p>
-                    <select @change="sortItemsBy">
+                    <select @change="sortItemsBy" >
                         <option value="">Best Match</option>
                         <option value="low-price">Price: Low to High</option>
                         <option value="high-price">Price: High to Low</option>
@@ -110,7 +109,11 @@ function sortItemsBy(e) {
                 <SpinnerVue />
             </div>
             <div v-else>
-                <items-wrapper :items="store.items" @toggle-like="toggleLike"  />
+                <items-wrapper
+                    :items="store.items"
+                    :gridItems="gridItems"
+                    @toggle-like="toggleLike"
+                />
             </div>
         </div>
     </div>
@@ -159,6 +162,8 @@ function sortItemsBy(e) {
             position: relative;
             left: 10px;
             bottom: 8px;
+            padding: 5px;
+            border-radius: 5px;
         }
     }
 }
