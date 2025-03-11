@@ -1,4 +1,6 @@
 import { createStore } from "vuex"
+import axios from "axios"
+import { BASE_URL } from './index.js'
 
 // let x = {
 //   name: '...',
@@ -13,10 +15,16 @@ import { createStore } from "vuex"
 const store = createStore({
   state: {
     count: 0,
+    products: [],
     // single source of truth over whole project
     // RU: единый источник правды по всему проекту
   },
+  // ===================================================
+  // ===================================================
   mutations: {
+    // sync operations
+    // RU: синхронные операции
+
     increment(state, payload) { // payload == {...}
       if (payload) {
         state.count += payload
@@ -30,13 +38,35 @@ const store = createStore({
       } else {
         state.count--
       }
+    },
+    setProducts(state, payload) {
+      state.products = payload
     }
-    // sync operations
-    // RU: синхронные операции
   },
+  getters: {
+    getCounter(state) {
+      return state.count + " items"
+    }
+  },
+  // ===================================================
+  // ===================================================
   actions: {
     // async operations
     // RU: асинхронные операции
+
+    // async fetchProducts(context, payload)
+    async fetchProducts({ commit }) {
+      try {
+        const response = await axios.get(`${BASE_URL}/shopListItems`)
+        const data = await response.data
+        commit('setProducts', data)
+        console.log(this.state.products)
+      }
+      catch (e) {
+        console.log("Ooops! Something went wrong!")
+        console.log(e)
+      }
+    }
   },
 })
 

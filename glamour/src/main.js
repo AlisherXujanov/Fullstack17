@@ -17,8 +17,9 @@ app.use(store)
 // RU: теперь мы можем использовать этот store с помощью сокращения в компонентах
 
 // ex:
-// get-info:  this.$store.state.count
-// call mutations:  this.$store.commit('increment')
+// get-info:       store.state.count
+// call mutations: store.commit('increment')
+// call actions:   store.dispatch('fetchProducts')
 
 app.use(router)
 app.mount('#app')
