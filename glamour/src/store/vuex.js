@@ -43,6 +43,8 @@ const store = createStore({
       state.products = payload
     }
   },
+  // ===================================================
+  // ===================================================
   getters: {
     getCounter(state) {
       return state.count + " items"

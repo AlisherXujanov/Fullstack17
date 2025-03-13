@@ -1,7 +1,5 @@
 <script setup>
 import { reactive, onMounted, ref, defineAsyncComponent, provide, onBeforeUnmount, computed } from 'vue'
-import { BASE_URL } from '@/store'
-import axios from 'axios'
 import HeadingVue from '@/components/HeadingVue.vue'
 
 // Convert synchronous imports to async components
@@ -11,6 +9,10 @@ const ItemsWrapper = defineAsyncComponent(() => import('@/components/products/It
 import { AnOutlinedUnorderedList } from '@kalimahapps/vue-icons'
 import { BsGridFill } from '@kalimahapps/vue-icons'
 
+
+import { useStore } from 'vuex'
+const vuex_store = useStore()
+
 const store = reactive({
   items: [],
   itemsPerPage: 4
@@ -18,31 +20,15 @@ const store = reactive({
 const loaded = ref(true) // Загружены ли данные
 const gridItems = ref(false)
 
-async function getItems() {
-  loaded.value = false
-  try {
-    const response = await axios.get(`${BASE_URL}/shopListItems`)
-    const data = await response.data
-    store.items.push(...data)
-    console.log(store.items)
-  }
-  catch (e) {
-    console.log("Ooops! Something went wrong!")
-    console.log(e)
-  }
-  finally {
-    loaded.value = true
-  }
-}
 
 function toggleGridItems(bool) {
   gridItems.value = bool
   console.log("gridItemsOnShop: ", gridItems.value)
 }
 
-
 onMounted(() => {
-  getItems()
+  vuex_store.dispatch('fetchProducts')
+  store.items = vuex_store.state.products
   gridItems.value = localStorage.getItem("gridItemsOnShop") || false
 })
 onBeforeUnmount(() => {
