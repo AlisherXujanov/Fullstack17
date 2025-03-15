@@ -8,15 +8,15 @@ const form = reactive({
   subject: '',
   message: ''
 })
-const templateParams = {
-  name: form.name,
-  subject: form.subject,
-  message: form.message
-}
 function submit(e) {
   emailjs
-    .send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, {
-      publicKey: 'YOUR_PUBLIC_KEY',
+    .send('', '', {
+      name:form.name,
+      subject:form.subject,
+      message:form.message,
+      time: new Date().toLocaleString()
+    }, {
+      publicKey: '',
     })
     .then(
       (response) => {
@@ -26,7 +26,6 @@ function submit(e) {
         console.log('FAILED...', err);
       },
     );
-
 }
 
 
@@ -57,9 +56,9 @@ function submit(e) {
       <div class="right">
         <form @submit.prevent="submit">
           <h4>Ask a Question</h4>
-          <input type="text" placeholder="Your name*" v-model="form.name">
-          <input type="text" placeholder="Subject*" v-model="form.subject">
-          <textarea cols="30" rows="7" placeholder="Type Your Message*" v-model="form.message"></textarea>
+          <input type="text" placeholder="Your name*" v-model="form.name" name="name">
+          <input type="text" placeholder="Subject*" v-model="form.subject" name="subject">
+          <textarea cols="30" rows="7" placeholder="Type Your Message*" v-model="form.message" name="message"></textarea>
           <button type="submit">Send Mail</button>
         </form>
       </div>
