@@ -87,6 +87,7 @@ const filteredProducts = computed(() => {
             <RouterLink to="/blog" active-class="active">Blog</RouterLink>
             <RouterLink to="/shop" active-class="active">Shop</RouterLink>
             <RouterLink to="/contact" active-class="active">Contact</RouterLink>
+            <RouterLink to="/faq" active-class="active">FAQ</RouterLink>
           </div>
         </div>
         <div class="right">
