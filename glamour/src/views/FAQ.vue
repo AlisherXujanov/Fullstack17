@@ -1,5 +1,17 @@
 <script setup>
 import HeadingVue from '@/components/HeadingVue.vue'
+import { reactive } from 'vue'
+
+const form = reactive({
+  name: '',
+  subject: '',
+  message: ''
+})
+
+function submit(e) {
+
+}
+
 
 </script>
 
@@ -26,11 +38,11 @@ import HeadingVue from '@/components/HeadingVue.vue'
           doloremque assumenda eum soluta?</p>
       </div>
       <div class="right">
-        <form action="">
+        <form @submit.prevent="submit">
           <h4>Ask a Question</h4>
-          <input type="text" placeholder="Your name*">
-          <input type="text" placeholder="Subject*">
-          <textarea name="" id="" cols="30" rows="7" placeholder="Type Your Message*"></textarea> <br>
+          <input type="text" placeholder="Your name*" v-model="form.name">
+          <input type="text" placeholder="Subject*" v-model="form.subject">
+          <textarea cols="30" rows="7" placeholder="Type Your Message*" v-model="form.message"></textarea>
           <button type="submit">Send Mail</button>
         </form>
       </div>
@@ -120,6 +132,7 @@ main {
     width: 90%;
   }
 }
+
 @media (max-width: $small) {
   main {
     width: 90%;
