@@ -1,14 +1,31 @@
 <script setup>
 import HeadingVue from '@/components/HeadingVue.vue'
 import { reactive } from 'vue'
+import emailjs from '@emailjs/browser';
 
 const form = reactive({
   name: '',
   subject: '',
   message: ''
 })
-
+const templateParams = {
+  name: form.name,
+  subject: form.subject,
+  message: form.message
+}
 function submit(e) {
+  emailjs
+    .send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams, {
+      publicKey: 'YOUR_PUBLIC_KEY',
+    })
+    .then(
+      (response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      },
+      (err) => {
+        console.log('FAILED...', err);
+      },
+    );
 
 }
 
