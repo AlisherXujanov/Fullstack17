@@ -2,6 +2,22 @@
 import HeadingVue from '@/components/HeadingVue.vue'
 import { reactive } from 'vue'
 import emailjs from '@emailjs/browser';
+import { PUBLIC_KEY, TEMPLATE_ID, SERVICE_ID } from '../../env';
+
+
+// const API_KEY = "..."
+// async function claude(prompt) {
+//   let response = await fetch(URL, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${API_KEY}`
+//     },
+//     body: JSON.stringify({ prompt })
+//   })
+//   // SHOW the response to the client
+// }
+
 
 const form = reactive({
   name: '',
@@ -10,13 +26,13 @@ const form = reactive({
 })
 function submit(e) {
   emailjs
-    .send('', '', {
+    .send(SERVICE_ID, TEMPLATE_ID, {
       name:form.name,
       subject:form.subject,
       message:form.message,
       time: new Date().toLocaleString()
     }, {
-      publicKey: '',
+      publicKey:PUBLIC_KEY,
     })
     .then(
       (response) => {

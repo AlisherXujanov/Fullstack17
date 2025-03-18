@@ -19,6 +19,7 @@ const store = reactive({
 })
 const loaded = ref(true) // Загружены ли данные
 const gridItems = ref(false)
+const activePage = ref(1) // defaults to first page
 
 
 function toggleGridItems(bool) {
@@ -48,6 +49,12 @@ function sortItemsBy(e) {
       break
     case "high-price":
       store.items.sort((a, b) => b.price - a.price)
+      break
+    case "newest":
+      store.items.sort((a, b) => b.id - a.id)
+      break
+    case "oldest":
+      store.items.sort((a, b) => a.id - b.id)
       break
     default:
       store.items.sort((a, b) => a.id - b.id)
@@ -82,6 +89,19 @@ const pagesToShow = computed(() => {
   return x
 })
 
+function activatePage(страница) {
+  // 2 для каждой страницы
+  activePage.value = страница
+  // страница==2   =>  4
+  // страница==4   =>  8
+}
+
+const slicedItems = computed(() => {
+  const start = (activePage.value - 1) * store.itemsPerPage
+  const end = start + store.itemsPerPage
+  return store.items.slice(start, end)
+})
+
 </script>
 
 <template>
@@ -97,7 +117,7 @@ const pagesToShow = computed(() => {
       <div class="right">
         <div class="per-page">
           <p>Per page:
-            <input id="per-page-input" type="number" min="0" :max="store.items.length" @change="handlePerPage"
+            <input id="per-page-input" type="number" min="1" :max="store.items.length" @change="handlePerPage"
               v-model="store.itemsPerPage">
           </p>
         </div>
@@ -105,11 +125,10 @@ const pagesToShow = computed(() => {
         <div class="sort-by">
           <p>Sort By: </p>
           <select @change="sortItemsBy">
-            <option value="">Best Match</option>
             <option value="low-price">Price: Low to High</option>
             <option value="high-price">Price: High to Low</option>
-            <option value="">Newest</option>
-            <option value="">Oldest</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
           </select>
         </div>
 
@@ -128,8 +147,14 @@ const pagesToShow = computed(() => {
     </div>
 
     <div class="paginator-wrapper" v-if="store.items.length > store.itemsPerPage">
-      <div v-for="i in pagesToShow" :key="i">
-        {{ i }}
+      <div
+        v-for="page in pagesToShow"
+        :key="page"
+        @click="activatePage(page)"
+        class="paginator-number"
+        :class="{ active: page === activePage }"
+      >
+        {{ page }}
       </div>
     </div>
 
@@ -138,7 +163,7 @@ const pagesToShow = computed(() => {
         <SpinnerVue />
       </div>
       <div v-else>
-        <items-wrapper :items="store.items.slice(0, store.itemsPerPage)" :gridItems="gridItems"
+        <items-wrapper :items="slicedItems" :gridItems="gridItems"
           @toggle-like="toggleLike" />
       </div>
     </div>
@@ -198,6 +223,25 @@ const pagesToShow = computed(() => {
 
 .paginator-wrapper {
   @include flex();
+
+  .paginator-number {
+    padding: 5px;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    background-color: #eee;
+    cursor: pointer;
+    @include flex();
+
+
+    &.active,
+    &:hover {
+      background-color: $red;
+      color: $light;
+      border: 1px solid $red;
+      outline: 3px solid #FB2E8650;
+    }
+  }
 }
 
 .shop-list-items-wrapper {
