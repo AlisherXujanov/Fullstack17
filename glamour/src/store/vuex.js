@@ -1,6 +1,9 @@
 import { createStore } from "vuex"
 import axios from "axios"
 import { BASE_URL } from './index.js'
+import counter from './modules/counter'
+import logger from './plugins/logger'
+
 
 // let x = {
 //   name: '...',
@@ -13,6 +16,10 @@ import { BASE_URL } from './index.js'
 
 
 const store = createStore({
+  modules: {
+    counter
+  },
+  plugins: [logger],
   state: {
     count: 0,
     products: [],
@@ -72,5 +79,13 @@ const store = createStore({
   },
 })
 
+if (import.meta.hot) {
+  import.meta.hot.accept([
+    './modules/counter',
+    './plugins/logger'
+  ], () => {
+    console.log('Hot module replacement');
+  });
+}
 export default store
 
