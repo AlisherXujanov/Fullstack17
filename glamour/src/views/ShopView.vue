@@ -56,6 +56,12 @@ function sortItemsBy(e) {
     case "oldest":
       store.items.sort((a, b) => a.id - b.id)
       break
+    case "high-star":
+      store.items.sort((a, b) => b.stars - a.stars)
+      break
+    case "low-star":
+      store.items.sort((a, b) => a.stars - b.stars)
+      break
     default:
       store.items.sort((a, b) => a.id - b.id)
   }
@@ -129,6 +135,8 @@ const slicedItems = computed(() => {
             <option value="high-price">Price: High to Low</option>
             <option value="newest">Newest</option>
             <option value="oldest">Oldest</option>
+            <option value="high-star">Stars:low to high</option>
+            <option value="low-star">Stars:high to low</option>
           </select>
         </div>
 

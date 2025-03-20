@@ -10,25 +10,25 @@ const META_URLS = [
     path: '/products',
     name: 'products',
     component: () => import('../views/ProductsView.vue'),
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: '/shop',
     name: 'shop',
     component: () => import('../views/ShopView.vue'),
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: '/contact',
     name: 'contact',
     component: () => import('../views/ContactView.vue'),
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
   {
     path: '/product-details/:id',
     name: "product-details",
     component: () => import('../views/ProductDetails.vue'),
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
 ]
 
