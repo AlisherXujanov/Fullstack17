@@ -1,8 +1,11 @@
 <script setup>
 import { ref, reactive } from 'vue'
+import { toast } from 'vue3-toastify'
+import { BASE_URL } from '@/store'
+import axios from "axios"
+
 
 const emit = defineEmits(['toggle-modal'])
-
 const form = reactive({
   title: '',
   price: '',
@@ -13,8 +16,31 @@ const form = reactive({
   // liked: false,
   // likes: []
 })
-
-function handleSubmit(e) {}
+async function handleSubmit(e) {
+  try {
+    for (let key in form) {
+      if (form[key] === "") {
+        toast(`${key} is required`, { autoClose: 3000,  type:'error' })
+        return
+      }
+    }
+    const data = {
+      ...form,
+      "stars":3,  "liked":false,
+      "likes": [2, 5, 9]
+    }
+    const URL = `${BASE_URL}/shopListItems`
+    await axios.post(URL, data)
+    emit('toggle-modal', false)
+    toast('Product created successfully', { autoClose: 3000,  type:'success' })
+  } catch (error) {
+    console.error('Error creating product:', error)
+    toast(error.response?.data?.message || 'Failed to create product', {
+      autoClose: 3000,
+      type:'error'
+    })
+  }
+}
 
 </script>
 
@@ -39,6 +65,7 @@ function handleSubmit(e) {}
           <div class="form-group">
             <label for="discount">Discount</label>
             <input type="number" id="discount" v-model="form.discount" required placeholder="Enter discount" min="0" max="99">
+            <small class="text-muted">Discount is in percentage (0-99). Example: 50 which is 50% off</small>
           </div>
           <div class="form-group">
             <label for="colors">Colors</label>
@@ -47,6 +74,7 @@ function handleSubmit(e) {}
               <option value="blue">Blue</option>
               <option value="green">Green</option>
             </select>
+            <small class="text-muted">You can select multiple colors as product can have multiple colors</small>
           </div>
           <button type="submit">Submit</button>
         </form>

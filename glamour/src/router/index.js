@@ -7,12 +7,6 @@ import { onAuthStateChanged } from 'firebase/auth'
 
 const META_URLS = [
   {
-    path: '/products',
-    name: 'products',
-    component: () => import('../views/ProductsView.vue'),
-    // meta: { requiresAuth: true },
-  },
-  {
     path: '/shop',
     name: 'shop',
     component: () => import('../views/ShopView.vue'),
