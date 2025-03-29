@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, onMounted, ref, defineAsyncComponent, onBeforeUnmount, computed } from 'vue'
 import HeadingVue from '@/components/HeadingVue.vue'
+import CreateUpdateForm from '@/components/CRUD/CreateUpdateForm.vue'
 
 // Convert synchronous imports to async components
 const SpinnerVue = defineAsyncComponent(() => import('@/components/SpinnerVue.vue'))
@@ -108,11 +109,24 @@ const slicedItems = computed(() => {
   return store.items.slice(start, end)
 })
 
+const isModalOpen = ref(false)
+
+function toggleModal(bool) {
+  isModalOpen.value = bool
+}
+
 </script>
 
 <template>
   <div>
     <heading-vue heading="Shop" path="Shop . Pages . Shop" />
+
+    <div>
+      <button @click="toggleModal(true)">Create new product</button>
+      <create-update-form v-if="isModalOpen" @toggle-modal="toggleModal" />
+    </div>
+
+
 
     <div class="filters-wrapper">
       <div class="left">
@@ -154,6 +168,17 @@ const slicedItems = computed(() => {
       </div>
     </div>
 
+    <div class="shop-list-items-wrapper">
+      <div v-if="!loaded">
+        <SpinnerVue />
+      </div>
+      <div v-else>
+        <items-wrapper :items="slicedItems" :gridItems="gridItems"
+          @toggle-like="toggleLike" />
+      </div>
+    </div>
+
+
     <div class="paginator-wrapper" v-if="store.items.length > store.itemsPerPage">
       <div
         v-for="page in pagesToShow"
@@ -163,16 +188,6 @@ const slicedItems = computed(() => {
         :class="{ active: page === activePage }"
       >
         {{ page }}
-      </div>
-    </div>
-
-    <div class="shop-list-items-wrapper">
-      <div v-if="!loaded">
-        <SpinnerVue />
-      </div>
-      <div v-else>
-        <items-wrapper :items="slicedItems" :gridItems="gridItems"
-          @toggle-like="toggleLike" />
       </div>
     </div>
   </div>
@@ -230,6 +245,7 @@ const slicedItems = computed(() => {
 }
 
 .paginator-wrapper {
+  margin: 50px auto;
   @include flex();
 
   .paginator-number {
