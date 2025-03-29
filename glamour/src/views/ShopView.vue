@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, defineAsyncComponent, provide, onBeforeUnmount, computed } from 'vue'
+import { reactive, onMounted, ref, defineAsyncComponent, onBeforeUnmount, computed } from 'vue'
 import HeadingVue from '@/components/HeadingVue.vue'
 
 // Convert synchronous imports to async components

@@ -1,6 +1,5 @@
 <script setup>
 import HeadingVue from '@/components/HeadingVue.vue'
-import FeaturedProducts from '@/components/products/FeaturedProducts.vue';
 
 import ProductDetails from '@/components/ProductDetails.vue';
 </script>

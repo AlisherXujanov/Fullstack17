@@ -8,3 +8,13 @@ RULES (Правила):
 ---------------------------------
 e2e  -> end to end testing (Robot will use browser and test each and every thing in the project)
 unit testing -> each unit of the website (small pieces)
+==========================================================================
+==========================================================================
+CRUD  => Create, Read, Update, Delete
+
+CRM  => Customer Relationship Management
+allows you to manage your customers
+- CRUD operations are vital for the CRM
+
+
+
