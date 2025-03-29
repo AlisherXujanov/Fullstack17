@@ -21,7 +21,7 @@ const props = defineProps({
     <div v-for="item in items" :key="item.id" class="item-wrapper" :class="props.gridItems ? 'list' : ''">
       <div class="img-wrapper">
         <router-link :to="'/product-details/' + item.id">
-          <img src="" alt="item-image" width="100%" height="200">
+          <img :src="item.pictureUrl" alt="item-image" width="100%" height="200">
         </router-link>
       </div>
       <div class="item-info">

@@ -12,6 +12,7 @@ const form = reactive({
   discount: '',
   description: '',
   colors: [],
+  pictureUrl: "",
   // stars: '',
   // liked: false,
   // likes: []
@@ -20,24 +21,24 @@ async function handleSubmit(e) {
   try {
     for (let key in form) {
       if (form[key] === "") {
-        toast(`${key} is required`, { autoClose: 3000,  type:'error' })
+        toast(`${key} is required`, { autoClose: 3000, type: 'error' })
         return
       }
     }
     const data = {
       ...form,
-      "stars":3,  "liked":false,
+      "stars": 3, "liked": false,
       "likes": [2, 5, 9]
     }
     const URL = `${BASE_URL}/shopListItems`
     await axios.post(URL, data)
     emit('toggle-modal', false)
-    toast('Product created successfully', { autoClose: 3000,  type:'success' })
+    toast('Product created successfully', { autoClose: 3000, type: 'success' })
   } catch (error) {
     console.error('Error creating product:', error)
     toast(error.response?.data?.message || 'Failed to create product', {
       autoClose: 3000,
-      type:'error'
+      type: 'error'
     })
   }
 }
@@ -64,7 +65,8 @@ async function handleSubmit(e) {
           </div>
           <div class="form-group">
             <label for="discount">Discount</label>
-            <input type="number" id="discount" v-model="form.discount" required placeholder="Enter discount" min="0" max="99">
+            <input type="number" id="discount" v-model="form.discount" required placeholder="Enter discount" min="0"
+              max="99">
             <small class="text-muted">Discount is in percentage (0-99). Example: 50 which is 50% off</small>
           </div>
           <div class="form-group">
@@ -76,6 +78,10 @@ async function handleSubmit(e) {
             </select>
             <small class="text-muted">You can select multiple colors as product can have multiple colors</small>
           </div>
+          <div class="form-group">
+            <label for="pictureUrl">Picture URL</label>
+            <input type="url" id="pictureUrl" v-model="form.pictureUrl" required placeholder="https://...">
+          </div>
           <button type="submit">Submit</button>
         </form>
       </div>
@@ -84,7 +90,6 @@ async function handleSubmit(e) {
 </template>
 
 <style lang="scss" scoped>
-
 .modal-screen {
   position: fixed;
   top: 0;
@@ -134,7 +139,8 @@ async function handleSubmit(e) {
           margin-bottom: 5px;
         }
 
-        input, textarea {
+        input,
+        textarea {
           display: block;
           width: 100%;
           padding: 10px 20px;
