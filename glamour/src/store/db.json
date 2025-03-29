@@ -211,6 +211,24 @@
       "liked": false,
       "likes": [],
       "pictureUrl": "https://images.unsplash.com/photo-1742330425089-1f91d18eaa4e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "id": "876d",
+      "title": "Test product",
+      "price": 333,
+      "discount": 10,
+      "description": "wqeqe qw eqw e q",
+      "colors": [
+        "blue"
+      ],
+      "pictureUrl": "https://images.unsplash.com/photo-1742943679521-f4736500a471?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "stars": 3,
+      "liked": false,
+      "likes": [
+        2,
+        5,
+        9
+      ]
     }
   ],
   "BlogPage": [

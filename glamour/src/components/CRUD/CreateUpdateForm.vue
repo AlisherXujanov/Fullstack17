@@ -115,10 +115,9 @@ async function handleSubmit(e) {
       top: 0;
       right: -30px;
       cursor: pointer;
-      background-color: $light;
-      color: $violet;
+      background: $violet;
+      color: $light;
       font-weight: bold;
-      font-size: 20px;
       @include circle(30px);
       @include flex();
     }
@@ -127,6 +126,7 @@ async function handleSubmit(e) {
       width: 100%;
       height: 80vh;
       overflow-y: auto;
+      padding-right: 20px;
       @include flex(row, flex-start, center);
 
 

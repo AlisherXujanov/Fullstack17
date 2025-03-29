@@ -121,10 +121,7 @@ function toggleModal(bool) {
   <div>
     <heading-vue heading="Shop" path="Shop . Pages . Shop" />
 
-    <div>
-      <button @click="toggleModal(true)">Create new product</button>
-      <create-update-form v-if="isModalOpen" @toggle-modal="toggleModal" />
-    </div>
+
 
 
 
@@ -169,24 +166,23 @@ function toggleModal(bool) {
     </div>
 
     <div class="shop-list-items-wrapper">
+      <div>
+        <button class="create-product-btn" @click="toggleModal(true)">Create new product</button>
+        <create-update-form v-if="isModalOpen" @toggle-modal="toggleModal" />
+      </div>
+
       <div v-if="!loaded">
         <SpinnerVue />
       </div>
       <div v-else>
-        <items-wrapper :items="slicedItems" :gridItems="gridItems"
-          @toggle-like="toggleLike" />
+        <items-wrapper :items="slicedItems" :gridItems="gridItems" @toggle-like="toggleLike" />
       </div>
     </div>
 
 
     <div class="paginator-wrapper" v-if="store.items.length > store.itemsPerPage">
-      <div
-        v-for="page in pagesToShow"
-        :key="page"
-        @click="activatePage(page)"
-        class="paginator-number"
-        :class="{ active: page === activePage }"
-      >
+      <div v-for="page in pagesToShow" :key="page" @click="activatePage(page)" class="paginator-number"
+        :class="{ active: page === activePage }">
         {{ page }}
       </div>
     </div>
@@ -271,5 +267,18 @@ function toggleModal(bool) {
 .shop-list-items-wrapper {
   width: 1141px;
   margin: 0 auto;
+  position: relative;
+
+
+  .create-product-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    background-color: $red;
+    color: $light;
+    border: 1px solid $red;
+    float: right;
+  }
 }
 </style>
