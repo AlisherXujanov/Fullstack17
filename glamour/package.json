@@ -10,7 +10,8 @@
     "test:e2e": "playwright test",
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "lint:eslint": "eslint . --fix",
-    "lint": "run-s lint:*"
+    "lint": "run-s lint:*",
+    "json-server": "json-server --watch src/store/db.json --port 3001"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

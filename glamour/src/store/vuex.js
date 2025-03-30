@@ -3,6 +3,7 @@ import axios from "axios"
 import { BASE_URL } from './index.js'
 import counter from './modules/counter'
 import logger from './plugins/logger'
+import rangeVal from './modules/rangeVal'
 
 
 // let x = {
@@ -18,10 +19,12 @@ import logger from './plugins/logger'
 const store = createStore({
     modules: {
         counter,
+        rangeVal
     },
     plugins: [logger],
     state: {
         count: 0,
+        rangeVal: 0,
         products: [],
         // single source of truth over whole project
         // RU: единый источник правды по всему проекту
@@ -48,6 +51,9 @@ const store = createStore({
         },
         setProducts(state, payload) {
             state.products = payload
+        },
+        setRange(state, payload) {
+            state.rangeVal = payload;
         }
     },
     // ===================================================
@@ -55,6 +61,9 @@ const store = createStore({
     getters: {
         getCounter(state) {
             return state.count + " items"
+        },
+        getRangeVal(state) {
+            return `${state.rangeVal} units`;
         }
     },
     // ===================================================
