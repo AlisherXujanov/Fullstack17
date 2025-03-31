@@ -32,7 +32,7 @@ const props = defineProps({
         </h3>
         <div class="item-price" v-if="props.gridItems">
           <div>
-            <span class="current-price">${{ (item.price - ((item.price/100) * item.discount)).toFixed(2) }}</span>
+            <span class="current-price">${{ (item.price * (1 - item.discount/100)).toFixed(2) }}</span>
             <span class="real-price">${{ item.price }}</span>
           </div>
           <div class="stars">
@@ -60,7 +60,7 @@ const props = defineProps({
             </span>
           </div>
           <div>
-            <span class="current-price">${{ item.price - (item.price * item.discount) }}</span>
+            <span class="current-price">${{ (item.price * (1 - item.discount/100)).toFixed(2) }}</span>
             <span class="real-price">${{ item.price }}</span>
           </div>
         </div>
