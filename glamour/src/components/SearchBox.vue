@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useStore } from 'vuex'
 import { AkSearch } from '@kalimahapps/vue-icons';
@@ -10,26 +10,46 @@ const isSearchOpen = ref(false)
 const searchQuery = ref('')
 
 const handleSearch = () => {
-  const value = searchQuery.value.toLowerCase()
+  const value = searchQuery.value.toLowerCase().trim()
   const products = store.state.products
 
   if (value.length === 0) {
     searchResults.value = []
-  } else {
-    const result = products.filter(p => p.title.toLowerCase().includes(value))
+    return
+  }
 
-    if (result.length === 0) {
-      searchResults.value = [{ title: "No results found", id: 'not_found' }]
-    } else {
-      searchResults.value = result
-    }
+  if (!products || products.length === 0) {
+    searchResults.value = [{ title: "Products not loaded yet", id: 'not_found' }]
+    return
+  }
+
+  const result = products.filter(p =>
+    p.title.toLowerCase().includes(value) ||
+    (p.description && p.description.toLowerCase().includes(value))
+  )
+
+  if (result.length === 0) {
+    searchResults.value = [{ title: "No results found", id: 'not_found' }]
+  } else {
+    searchResults.value = result.slice(0, 5) // Limit to 5 results for better UX
   }
 }
 
 const handleBlur = () => {
   setTimeout(() => {
     isSearchOpen.value = false
-  }, 200)
+  }, 300)
+}
+
+const handleFocus = () => {
+  isSearchOpen.value = true
+  if (searchQuery.value) {
+    handleSearch()
+  }
+}
+
+const handleClick = (e) => {
+  e.stopPropagation()
 }
 
 const clearSearch = () => {
@@ -37,6 +57,13 @@ const clearSearch = () => {
   searchResults.value = []
   isSearchOpen.value = false
 }
+
+// Watch for products loading state
+watch(() => store.state.productsLoading, (newValue) => {
+  if (!newValue && searchQuery.value) {
+    handleSearch()
+  }
+})
 
 </script>
 
@@ -47,16 +74,20 @@ const clearSearch = () => {
         type="search"
         placeholder="Search for products"
         @input="handleSearch"
-        @focus="isSearchOpen = true"
+        @focus="handleFocus"
         @blur="handleBlur"
         v-model="searchQuery"
       />
-      <button>
+      <button @click="handleClick">
         <AkSearch />
       </button>
     </div>
 
-    <div v-if="searchResults.length > 0 && isSearchOpen" class="search-info">
+    <div
+      v-if="searchResults.length > 0 && isSearchOpen"
+      class="search-info"
+      @click="handleClick"
+    >
       <RouterLink
         v-for="(product, idx) in searchResults"
         :key="idx"
@@ -79,7 +110,7 @@ const clearSearch = () => {
   gap: 10px;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
 
   .search-box {
     display: flex;
@@ -89,6 +120,8 @@ const clearSearch = () => {
     overflow: hidden;
     width: 100%;
     max-width: 100%;
+    position: relative;
+    z-index: 1001;
 
     input {
       padding: 8px 12px;
@@ -125,7 +158,7 @@ const clearSearch = () => {
     left: 0;
     right: 0;
     background: white;
-    z-index: 1000;
+    z-index: 1002;
     max-height: 300px;
     overflow-y: auto;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -136,7 +169,7 @@ const clearSearch = () => {
     border-bottom-right-radius: 10px;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
 
     .search-link {
       display: block;

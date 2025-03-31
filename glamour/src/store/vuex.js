@@ -23,6 +23,7 @@ const store = createStore({
     state: {
         count: 0,
         products: [],
+        productsLoading: false,
         // single source of truth over whole project
         // RU: единый источник правды по всему проекту
     },
@@ -48,6 +49,9 @@ const store = createStore({
         },
         setProducts(state, payload) {
             state.products = payload
+        },
+        setProductsLoading(state, payload) {
+            state.productsLoading = payload
         }
     },
     // ===================================================
@@ -66,6 +70,7 @@ const store = createStore({
         // async fetchProducts(context, payload)
         async fetchProducts({ commit }) {
             try {
+                commit('setProductsLoading', true)
                 const response = await axios.get(`${BASE_URL}/shop-list-items`)
                 const data = await response.data
                 commit('setProducts', data)
@@ -74,6 +79,8 @@ const store = createStore({
             catch (e) {
                 console.log("Ooops! Something went wrong!")
                 console.log(e)
+            } finally {
+                commit('setProductsLoading', false)
             }
         }
     },
