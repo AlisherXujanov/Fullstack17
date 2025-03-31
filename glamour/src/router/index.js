@@ -21,7 +21,7 @@ const META_URLS = [
   {
     path: '/product-details/:id',
     name: "product-details",
-    component: () => import('../views/ProductDetails.vue'),
+    component: () => import('../components/products/ProductDetails.vue'),
     // meta: { requiresAuth: true },
   },
 ]

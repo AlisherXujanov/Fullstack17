@@ -1,14 +1,12 @@
 <script setup>
 import HeadingVue from '@/components/HeadingVue.vue'
 
-import ProductDetails from '@/components/ProductDetails.vue';
 </script>
 
 <template>
   <div>
-    <heading-vue heading="Product Details" path="Home . Pages . Product Details" />
+    <heading-vue heading="Home page" path="Home . Pages . Home" />
 
-    <ProductDetails />
   </div>
 </template>
 
