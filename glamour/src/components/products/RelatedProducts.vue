@@ -1,6 +1,9 @@
 <script setup>
 import { AnFilledStar } from '@kalimahapps/vue-icons';
 import { goToTopSmoothly } from '@/composables/helpers';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 defineProps({
   products: {
@@ -9,8 +12,9 @@ defineProps({
   }
 });
 
-const handleProductClick = () => {
-  goToTopSmoothly();
+const handleProductClick = async (productId) => {
+  await goToTopSmoothly();
+  router.push(`/product-details/${productId}`);
 };
 </script>
 
@@ -19,9 +23,9 @@ const handleProductClick = () => {
     <h1>Related Products</h1>
     <div class="products-grid">
       <div v-for="item in products" :key="item.id" class="product-card">
-        <router-link :to="'/product-details/' + item.id" @click="handleProductClick">
+        <div class="product-image" @click="handleProductClick(item.id)">
           <img :src="item.pictureUrl" width="100%" alt="related-product">
-        </router-link>
+        </div>
         <div class="card-content">
           <div class="card-header">
             <h1>{{ item.title }}</h1>
@@ -54,6 +58,15 @@ const handleProductClick = () => {
     .product-card {
       color: $dark-blue;
       border: none;
+
+      .product-image {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
 
       .card-content {
         padding: 15px 5px;

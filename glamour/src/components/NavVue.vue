@@ -6,8 +6,33 @@ import { LuShoppingCart } from '@kalimahapps/vue-icons'
 import { auth } from '@/firebase/config'
 import { MiLogout } from '@kalimahapps/vue-icons'
 import SearchBox from './SearchBox.vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const router = useRouter()
+const lastScrollY = ref(0)
+const isNavVisible = ref(true)
+
+const handleScroll = () => {
+  const currentScrollY = window.scrollY
+
+  if (currentScrollY > lastScrollY.value) {
+    // Scrolling down
+    isNavVisible.value = false
+  } else {
+    // Scrolling up
+    isNavVisible.value = true
+  }
+
+  lastScrollY.value = currentScrollY
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
 const handleLogout = async () => {
   try {
@@ -20,7 +45,7 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <nav>
+  <nav :class="{ 'nav-hidden': !isNavVisible }">
     <div class="top-nav">
       <div class="container">
         <div class="left">
@@ -88,11 +113,18 @@ const handleLogout = async () => {
 <style lang="scss" scoped>
 nav {
   width: 100%;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 1000;
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(0);
+
+  &.nav-hidden {
+    transform: translateY(-100%);
+  }
 
   .container {
     max-width: 1200px;
@@ -364,5 +396,10 @@ nav {
       }
     }
   }
+}
+
+// Add this to ensure content below nav is not hidden
+:global(body) {
+  padding-top: 120px; // Adjust this value based on your nav height
 }
 </style>

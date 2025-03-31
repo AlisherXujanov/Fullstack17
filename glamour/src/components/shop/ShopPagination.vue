@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { range } from '@/composables/helpers'
+import { goToTopSmoothly } from '@/composables/helpers'
 
 const props = defineProps({
   currentPage: {
@@ -22,6 +23,7 @@ const pagesToShow = computed(() => {
 function activatePage(page) {
   if (page >= 1 && page <= props.totalPages) {
     emit('pageChange', page)
+    goToTopSmoothly()
   }
 }
 </script>

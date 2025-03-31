@@ -4,8 +4,10 @@ import { BxSearchAlt } from '@kalimahapps/vue-icons'
 import { LuShoppingCart } from '@kalimahapps/vue-icons'
 import { BxHeart } from '@kalimahapps/vue-icons'
 import { BxSolidHeart } from '@kalimahapps/vue-icons'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
+import { goToTopSmoothly } from '@/composables/helpers'
 
+const router = useRouter()
 
 const emit = defineEmits(['toggle-like'])
 
@@ -14,15 +16,18 @@ const props = defineProps({
   gridItems: Boolean, // second prop
 })
 
-
+const handleProductClick = async (productId) => {
+  await goToTopSmoothly()
+  router.push(`/product-details/${productId}`)
+}
 </script>
 <template>
   <div :class="props.gridItems ? '' : 'grid'">
     <div v-for="item in items" :key="item.id" class="item-wrapper" :class="props.gridItems ? 'list' : ''">
       <div class="img-wrapper">
-        <router-link :to="'/product-details/' + item.id">
+        <div class="product-image" @click="handleProductClick(item.id)">
           <img :src="item.pictureUrl" alt="item-image" width="100%" height="200">
-        </router-link>
+        </div>
       </div>
       <div class="item-info">
         <h3>{{ item.title }}
@@ -223,6 +228,19 @@ const props = defineProps({
             }
           }
         }
+      }
+    }
+  }
+}
+
+.items-wrapper {
+  .item-card {
+    .product-image {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
       }
     }
   }
