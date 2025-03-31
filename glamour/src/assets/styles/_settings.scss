@@ -141,3 +141,60 @@ $xx-large: 1525px;
         }
     }
 }
+
+
+@mixin product-colors {
+    span {
+        margin-right: 5px;
+        @include circle(15px);
+
+        &.red {
+            background-color: $magenta;
+        }
+
+        &.blue {
+            background-color: $violet-blue;
+        }
+
+        &.orange {
+            background-color: $orange;
+        }
+
+        &.gray {
+            background-color: #808080;
+        }
+
+        &.white {
+            background-color: #FFFFFF;
+            border: 1px solid #E0E0E0;
+        }
+
+        &.black {
+            background-color: #000000;
+        }
+
+        &.brown {
+            background-color: #8B4513;
+        }
+
+        &.beige {
+            background-color: #F5F5DC;
+        }
+
+        &.cream {
+            background-color: #FFFDD0;
+        }
+
+        &.mahogany {
+            background-color: #C04000;
+        }
+
+        &.walnut {
+            background-color: #773F1A;
+        }
+
+        &.tan {
+            background-color: #D2B48C;
+        }
+    }
+}

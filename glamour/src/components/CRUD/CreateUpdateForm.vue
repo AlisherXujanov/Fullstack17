@@ -5,6 +5,8 @@ import { BASE_URL } from '@/store'
 import axios from "axios"
 
 
+const colorChoices = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'brown', 'black', 'white', 'gray', 'pink', 'gold', 'silver', 'teal', 'lime', 'maroon', 'navy', 'olive', 'purple', 'teal', 'turquoise', 'violet', 'yellow']
+
 const emit = defineEmits(['toggle-modal'])
 const form = reactive({
   title: '',
@@ -72,11 +74,12 @@ async function handleSubmit(e) {
           <div class="form-group">
             <label for="colors">Colors</label>
             <select name="colors" id="colors" v-model="form.colors" multiple required>
-              <option value="red">Red</option>
-              <option value="blue">Blue</option>
-              <option value="green">Green</option>
+              <option v-for="c in colorChoices" :key="c" :value="c">
+                {{ c.charAt(0).toUpperCase() + c.slice(1) }}
+                <span :class="c"></span>
+              </option>
             </select>
-            <small class="text-muted">You can select multiple colors as product can have multiple colors</small>
+              <small class="text-muted">You can press ctrl+click to select multiple colors</small>
           </div>
           <div class="form-group">
             <label for="pictureUrl">Picture URL</label>
@@ -165,7 +168,7 @@ async function handleSubmit(e) {
 
         textarea {
           min-height: 100px;
-          resize: none;
+          overflow-y: auto;
         }
       }
 
@@ -188,16 +191,31 @@ async function handleSubmit(e) {
         border-radius: 5px;
         margin-bottom: 10px;
         outline: none;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        border: 1px solid transparent;
+        background-color: #eee;
+        cursor: pointer;
+        min-height: 120px;
+
+        &:focus {
+          border-color: $violet;
+          background-color: $light;
+        }
 
         option {
-          padding: 5px 10px;
-          border-radius: 5px;
-          margin-bottom: 10px;
-          outline: none;
-          overflow: hidden;
+          padding: 8px 12px;
+          margin: 2px 0;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+
+          &:checked {
+            background-color: $violet;
+            color: $light;
+          }
         }
       }
     }

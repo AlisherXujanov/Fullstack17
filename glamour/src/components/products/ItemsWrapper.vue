@@ -110,22 +110,7 @@ const handleProductClick = async (productId) => {
       @include flex(row, flex-start, center, 20px);
 
       .colors {
-        span {
-          margin-right: 5px;
-          @include circle(15px);
-
-          &.red {
-            background-color: $magenta;
-          }
-
-          &.blue {
-            background-color: $violet-blue;
-          }
-
-          &.orange {
-            background-color: $orange;
-          }
-        }
+        @include product-colors;
       }
     }
 
