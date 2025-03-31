@@ -5,4 +5,12 @@ function goToTopSmoothly() {
   });
 }
 
-export { goToTopSmoothly };
+function range(start, end = null) {
+  if (end === null) {
+    end = start
+    start = 0
+  }
+  return Array(end - start).fill().map((_, idx) => start + idx)
+}
+
+export { goToTopSmoothly, range };

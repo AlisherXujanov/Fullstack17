@@ -9,18 +9,27 @@ export function useProduct() {
 
   const product = ref(null);
   const relatedProducts = ref([]);
+  const isLoading = ref(true);
 
-  const fetchProductDetails = () => {
-    store.dispatch('fetchProducts');
-    const result = store.state.products.find(p => p.id === route.params.id);
+  const fetchProductDetails = async () => {
+    isLoading.value = true;
+    try {
+      await store.dispatch('fetchProducts');
+      const result = store.state.products.find(p => p.id === route.params.id);
 
-    if (!result) {
+      if (!result) {
+        router.push("/404");
+        return;
+      }
+
+      product.value = result;
+      fetchRelatedProducts();
+    } catch (error) {
+      console.error('Error fetching product details:', error);
       router.push("/404");
-      return;
+    } finally {
+      isLoading.value = false;
     }
-
-    product.value = result;
-    fetchRelatedProducts();
   };
 
   const fetchRelatedProducts = () => {
@@ -48,6 +57,7 @@ export function useProduct() {
   return {
     product,
     relatedProducts,
+    isLoading,
     toggleLike,
     addToCart
   };

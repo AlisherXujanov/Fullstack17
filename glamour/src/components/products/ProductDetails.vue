@@ -7,7 +7,7 @@ import RelatedProducts from './RelatedProducts.vue';
 import { onMounted } from 'vue';
 import { goToTopSmoothly } from '@/composables/helpers';
 
-const { product, relatedProducts, toggleLike, addToCart } = useProduct();
+const { product, relatedProducts, isLoading, toggleLike, addToCart } = useProduct();
 
 onMounted(() => {
   goToTopSmoothly();
@@ -15,7 +15,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="product" class="product-details">
+  <div v-if="isLoading" class="loading">
+    Loading product details...
+  </div>
+  <div v-else-if="product" class="product-details">
     <div class="main-content">
       <ProductGallery :image-url="product.pictureUrl" />
       <ProductInfo
@@ -27,16 +30,20 @@ onMounted(() => {
     <ProductTabs :description="product.description" />
     <RelatedProducts :products="relatedProducts" />
   </div>
-  <div v-else class="loading">
-    Loading product details...
+  <div v-else class="error">
+    Product not found
   </div>
 </template>
 
 <style lang="scss" scoped>
-.loading {
+.loading, .error {
   text-align: center;
   padding: 50px;
   font-size: 20px;
+}
+
+.error {
+  color: #dc3545;
 }
 
 .product-details {

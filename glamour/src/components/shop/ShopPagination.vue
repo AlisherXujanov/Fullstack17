@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { range } from '@/composables/helpers'
 
 const props = defineProps({
   currentPage: {
@@ -13,14 +14,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['pageChange'])
-
-function range(start, end = null) {
-  if (end === null) {
-    end = start
-    start = 0
-  }
-  return Array(end - start).fill().map((_, idx) => start + idx)
-}
 
 const pagesToShow = computed(() => {
   return range(1, props.totalPages + 1)

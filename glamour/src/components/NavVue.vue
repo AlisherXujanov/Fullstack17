@@ -1,20 +1,13 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router'
-import { ref, computed, inject, onMounted } from 'vue'
-import { AkSearch } from '@kalimahapps/vue-icons'
 import { MdOutlinedLanguage } from '@kalimahapps/vue-icons'
 import { ReAccountPinCircleFill } from '@kalimahapps/vue-icons'
 import { LuShoppingCart } from '@kalimahapps/vue-icons'
 import { auth } from '@/firebase/config'
 import { MiLogout } from '@kalimahapps/vue-icons'
-import { useStore } from 'vuex'
+import SearchBox from './SearchBox.vue'
 
 const router = useRouter()
-const search = ref('')
-const isSearchOpen = ref(false)
-
-const store = useStore()
-const products = computed(() => store.state.products)
 
 const handleLogout = async () => {
   try {
@@ -24,10 +17,6 @@ const handleLogout = async () => {
     console.error('Logout error:', error)
   }
 }
-const filteredProducts = computed(() => {
-  return store.state.products.filter((obj) => obj.title.toLowerCase().includes(search.value.toLowerCase()))
-})
-
 </script>
 
 <template>
@@ -89,20 +78,7 @@ const filteredProducts = computed(() => {
           </div>
         </div>
         <div class="right">
-          <div class="search-container" :class="{ active: isSearchOpen }">
-            <div class="search-box">
-              <input type="search" v-model="search" placeholder="Search for products" @focus="isSearchOpen = true"
-                @blur="isSearchOpen = false">
-              <button>
-                <AkSearch />
-              </button>
-            </div>
-            <ul class="search-results" v-if="search.length > 0">
-              <li v-for="product in filteredProducts" :key="product.id">
-                {{ product.title }}
-              </li>
-            </ul>
-          </div>
+          <SearchBox />
         </div>
       </div>
     </div>
@@ -230,62 +206,9 @@ nav {
       }
 
       .right {
-        .search-container {
-          position: relative;
-
-          .search-box {
-            display: flex;
-            align-items: center;
-            border: 1px solid #e5e5e5;
-            border-radius: 4px;
-            overflow: hidden;
-
-            input {
-              padding: 0.5rem 1rem;
-              border: none;
-              outline: none;
-              width: 200px;
-              font-size: 0.9rem;
-            }
-
-            button {
-              padding: 0.5rem 1rem;
-              border: none;
-              color: $dark-blue;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              height: 40px;
-
-              &:hover {
-                color: $violet;
-              }
-            }
-          }
-
-          .search-results {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: white;
-            border: 1px solid #e5e5e5;
-            border-top: none;
-            border-radius: 0 0 4px 4px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 1000;
-
-            li {
-              padding: 0.5rem 1rem;
-              list-style: none;
-              cursor: pointer;
-
-              &:hover {
-                background: #f5f5f5;
-              }
-            }
+        .searchbar {
+          input {
+            width: 200px;
           }
         }
       }
@@ -379,13 +302,9 @@ nav {
         .right {
           width: 100%;
 
-          .search-container {
-            .search-box {
+          .searchbar {
+            input {
               width: 100%;
-
-              input {
-                width: 100%;
-              }
             }
           }
         }
