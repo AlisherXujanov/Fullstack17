@@ -18,6 +18,11 @@ function handleClick(e) {
     throw new Error('Invalid button name')
   }
 }
+function handleRange(e) {
+  store.commit('setRange', e.target.value)
+}
+const rangeVal = computed(() => store.state.rangeVal)
+const formattedRangeVal = computed(() => `${rangeVal.value} units`)
 </script>
 
 <template>
@@ -28,6 +33,10 @@ function handleClick(e) {
       <h1>Count: {{ count }}</h1>
       <button @click="handleClick" name="dec">➖ Decrement</button>
       <button @click="handleClick" name="inc">➕ Increment</button>
+    </div>
+    <div class="box">
+      <h1>rangeVal: {{ rangeVal }}</h1>
+      <input type="range" @change="handleRange" v-model="rangeVal" />
     </div>
 
   </div>
