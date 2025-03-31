@@ -122,7 +122,7 @@ onBeforeUnmount(() => {
     />
 
     <div class="shop-list-items-wrapper">
-      <div>
+      <div class="shop-header">
         <button class="create-product-btn" @click="toggleModal(true)">Create new product</button>
         <create-update-form v-if="isModalOpen" @toggle-modal="toggleModal" />
       </div>
@@ -131,6 +131,7 @@ onBeforeUnmount(() => {
         <SpinnerVue />
       </div>
       <div v-else>
+        <h2>{{ gridItems ? 'Grid' : 'List' }} view</h2>
         <items-wrapper :items="slicedItems" :gridItems="gridItems" @toggle-like="toggleLike" />
       </div>
     </div>
@@ -150,14 +151,32 @@ onBeforeUnmount(() => {
   margin: 0 auto;
   position: relative;
 
+  .shop-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+
   .create-product-btn {
-    position: absolute;
-    right: 0;
-    top: 0;
     background-color: $red;
     color: $light;
     border: 1px solid $red;
-    float: right;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: darken($red, 10%);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
   }
 }
 </style>

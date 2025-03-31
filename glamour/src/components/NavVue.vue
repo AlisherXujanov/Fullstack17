@@ -11,13 +11,24 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const router = useRouter()
 const lastScrollY = ref(0)
 const isNavVisible = ref(true)
+const isBurgerOpen = ref(false)
+
+const toggleBurger = (e, bool = undefined) => {
+  if (bool) {
+    isBurgerOpen.value = bool
+  } else {
+    isBurgerOpen.value = !isBurgerOpen.value
+  }
+}
 
 const handleScroll = () => {
   const currentScrollY = window.scrollY
 
   if (currentScrollY > lastScrollY.value) {
-    // Scrolling down
-    isNavVisible.value = false
+    // we make it invisible when the scroll height is greater than the last scroll height
+    if (isNavVisible.value && currentScrollY > 120) {
+      isNavVisible.value = false
+    }
   } else {
     // Scrolling up
     isNavVisible.value = true
@@ -49,13 +60,13 @@ const handleLogout = async () => {
     <div class="top-nav">
       <div class="container">
         <div class="left">
-          <a href="mailto:alisherxujanov163@gmail.com">
+          <a href="mailto:support@glamourfashion.com">
             <i class="fas fa-envelope"></i>
-            alisherxujanov163@gmail.com
+            support@glamourfashion.com
           </a>
-          <a href="tel:+998334747477">
+          <a href="tel:+15551234567">
             <i class="fas fa-phone"></i>
-            +998 (33) 474-74-77
+            (555) 123-4567
           </a>
         </div>
         <div class="right">
@@ -93,6 +104,11 @@ const handleLogout = async () => {
       <div class="container">
         <div class="left">
           <RouterLink to="/" class="logo">Glamour</RouterLink>
+          <div class="burger-menu" @click="(e) => { toggleBurger(e) }">
+            <div class="burger-line" :class="{ 'open': isBurgerOpen }"></div>
+            <div class="burger-line" :class="{ 'open': isBurgerOpen }"></div>
+            <div class="burger-line" :class="{ 'open': isBurgerOpen }"></div>
+          </div>
           <div class="nav-links">
             <RouterLink to="/" active-class="active">Home</RouterLink>
             <RouterLink to="/about" active-class="active">About</RouterLink>
@@ -107,6 +123,16 @@ const handleLogout = async () => {
         </div>
       </div>
     </div>
+
+    <!-- New mobile menu -->
+    <div class="mobile-menu" :class="{ 'open': isBurgerOpen }">
+      <RouterLink @click="(e) => { toggleBurger(e, false) }" to="/" active-class="active">Home</RouterLink>
+      <RouterLink @click="(e) => { toggleBurger(e, false) }" to="/about" active-class="active">About</RouterLink>
+      <RouterLink @click="(e) => { toggleBurger(e, false) }" to="/blog" active-class="active">Blog</RouterLink>
+      <RouterLink @click="(e) => { toggleBurger(e, false) }" to="/shop" active-class="active">Shop</RouterLink>
+      <RouterLink @click="(e) => { toggleBurger(e, false) }" to="/contact" active-class="active">Contact</RouterLink>
+      <RouterLink @click="(e) => { toggleBurger(e, false) }" to="/faq" active-class="active">FAQ</RouterLink>
+    </div>
   </nav>
 </template>
 
@@ -115,12 +141,11 @@ nav {
   width: 100%;
   position: fixed;
   top: 0;
-  left: 0;
-  z-index: 1000;
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
   transform: translateY(0);
+  z-index: 1000;
 
   &.nav-hidden {
     transform: translateY(-100%);
@@ -201,6 +226,10 @@ nav {
           font-weight: bold;
           color: $dark-blue;
           text-decoration: none;
+        }
+
+        .burger-menu {
+          display: none;
         }
 
         .nav-links {
@@ -294,51 +323,36 @@ nav {
 
   @media (max-width: 768px) {
     .top-nav {
-      .container {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.5rem;
-
-        .left {
-          width: 100%;
-          justify-content: center;
-        }
-
-        .right {
-          width: 100%;
-          justify-content: center;
-        }
-      }
+      display: none;
     }
 
     .main-nav {
-      .container {
-        flex-direction: column;
-        gap: 1rem;
+      padding: 0.5rem 0;
+      position: relative;
 
+      .container {
         .left {
-          flex-direction: column;
           width: 100%;
-          text-align: center;
+          justify-content: space-between;
+          padding: 0 1rem;
 
           .logo {
-            margin-bottom: 1rem;
+            margin-bottom: 0;
+            font-size: 1.5rem;
+          }
+
+          .burger-menu {
+            display: flex;
+            z-index: 1002;
           }
 
           .nav-links {
-            flex-wrap: wrap;
-            justify-content: center;
+            display: none;
           }
         }
 
         .right {
-          width: 100%;
-
-          .searchbar {
-            input {
-              width: 100%;
-            }
-          }
+          display: none;
         }
       }
     }
@@ -398,8 +412,84 @@ nav {
   }
 }
 
-// Add this to ensure content below nav is not hidden
-:global(body) {
-  padding-top: 120px; // Adjust this value based on your nav height
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background: white;
+  padding: 80px 2rem 2rem;
+  flex-direction: column;
+  transition: right 0.3s ease-in-out;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+
+  &.open {
+    right: 0;
+    display: flex;
+  }
+
+  a {
+    width: 100%;
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 1.1rem;
+    color: $dark-blue;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &::after {
+      display: none;
+    }
+
+    &.active {
+      background: #ff4444;
+      color: white;
+    }
+  }
+}
+
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  position: relative;
+
+  .burger-line {
+    width: 100%;
+    height: 2px;
+    background-color: $dark-blue;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+    transform-origin: left;
+  }
+
+  .burger-line.open:nth-child(1) {
+    transform: rotate(45deg) translateX(0);
+  }
+
+  .burger-line.open:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-line.open:nth-child(3) {
+    transform: rotate(-45deg) translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .burger-menu {
+    display: flex;
+  }
 }
 </style>

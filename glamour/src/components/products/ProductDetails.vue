@@ -40,19 +40,91 @@ onMounted(() => {
   text-align: center;
   padding: 50px;
   font-size: 20px;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .error {
   color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 8px;
+  margin: 20px;
 }
 
 .product-details {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
   .main-content {
-    width: 1120px;
-    margin: 100px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .product-details {
+    padding: 15px;
+
+    .main-content {
+      gap: 30px;
+      padding: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .product-details {
+    .main-content {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin: 20px auto;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-details {
     padding: 10px;
-    @include grid(2);
-    box-shadow: 0 0 50px $violet-light;
+
+    .main-content {
+      padding: 15px;
+      margin: 15px auto;
+    }
+  }
+
+  .loading, .error {
+    padding: 30px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product-details {
+    padding: 5px;
+
+    .main-content {
+      padding: 10px;
+      margin: 10px auto;
+    }
+  }
+
+  .loading, .error {
+    padding: 20px;
+    font-size: 16px;
   }
 }
 </style>

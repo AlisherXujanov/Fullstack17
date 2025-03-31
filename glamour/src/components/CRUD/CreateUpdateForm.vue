@@ -51,6 +51,8 @@ async function handleSubmit(e) {
   <div>
     <div class="modal-screen">
       <div class="modal-content">
+        <h1>Create New Product</h1>
+
         <span id="close-modal" @click="emit('toggle-modal', false)">&times;</span>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
@@ -76,16 +78,32 @@ async function handleSubmit(e) {
             <select name="colors" id="colors" v-model="form.colors" multiple required>
               <option v-for="c in colorChoices" :key="c" :value="c">
                 {{ c.charAt(0).toUpperCase() + c.slice(1) }}
-                <span :class="c"></span>
               </option>
             </select>
-              <small class="text-muted">You can press ctrl+click to select multiple colors</small>
+            <small class="text-muted">You can press ctrl+click to select multiple colors</small>
+            <div class="colors-demonstration" v-if="form.colors.length > 0">
+              <p class="selected-colors">
+               Selected <b>{{ form.colors.length }}</b> {{form.colors.length > 1 ? 'colors' : 'color'}}:
+                <span v-for="c in form.colors" :key="c" :class="c"
+                  @click="(e) => { e.preventDefault(); form.colors = form.colors.filter(color => color !== c) }"
+                ></span>
+              </p>
+            </div>
           </div>
           <div class="form-group">
             <label for="pictureUrl">Picture URL</label>
             <input type="url" id="pictureUrl" v-model="form.pictureUrl" required placeholder="https://...">
+            <img
+              v-if="form.pictureUrl"
+              :src="form.pictureUrl"
+              alt="product-image"
+              class="product-image"
+              @click="(e) => { e.preventDefault(); form.pictureUrl = '' }"
+            >
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit"
+            :disabled="!form.title || !form.description || !form.price || !form.discount || !form.colors.length || !form.pictureUrl"
+          >Submit</button>
         </form>
       </div>
     </div>
@@ -107,7 +125,8 @@ async function handleSubmit(e) {
 
 
   .modal-content {
-    width: 550px;
+    max-width: 750px;
+    width: 100%;
     margin: 0 auto;
     background-color: #fff;
     padding: 20px;
@@ -138,6 +157,7 @@ async function handleSubmit(e) {
       .form-group {
         width: 100%;
         margin-bottom: 10px;
+        text-align: left;
 
         label {
           display: block;
@@ -170,6 +190,13 @@ async function handleSubmit(e) {
           min-height: 100px;
           overflow-y: auto;
         }
+
+        img {
+          width: 150px;
+          height: 150px;
+          border-radius: 5px;
+          margin: 10px 0;
+        }
       }
 
       button {
@@ -182,6 +209,11 @@ async function handleSubmit(e) {
 
         &:hover {
           background: color.adjust($violet, $lightness: -10%);
+        }
+
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
         }
       }
 
@@ -217,6 +249,13 @@ async function handleSubmit(e) {
             color: $light;
           }
         }
+      }
+
+      .colors-demonstration {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        @include product-colors;
       }
     }
   }

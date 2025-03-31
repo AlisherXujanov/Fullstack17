@@ -77,6 +77,9 @@ const clearSearch = () => {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 
   .search-box {
     display: flex;
@@ -84,13 +87,19 @@ const clearSearch = () => {
     border: 1px solid #e5e5e5;
     border-radius: 4px;
     overflow: hidden;
+    width: 100%;
+    max-width: 100%;
 
     input {
       padding: 8px 12px;
       border: none;
       outline: none;
-      width: 200px;
+      width: 100%;
+      max-width: 200px;
       font-size: 0.9rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     button {
@@ -102,6 +111,7 @@ const clearSearch = () => {
       align-items: center;
       justify-content: center;
       color: #333;
+      flex-shrink: 0;
 
       &:hover {
         color: #FB2E86;
@@ -124,6 +134,9 @@ const clearSearch = () => {
     border-top: none;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 
     .search-link {
       display: block;
@@ -132,6 +145,9 @@ const clearSearch = () => {
       color: inherit;
       transition: background-color 0.2s;
       border-bottom: 1px solid #f0f0f0;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
 
       &:last-child {
         border-bottom: none;
@@ -150,6 +166,20 @@ const clearSearch = () => {
         margin: 0;
         font-size: 14px;
         font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .searchbar {
+    .search-box {
+      input {
+        max-width: 150px;
+        font-size: 0.8rem;
       }
     }
   }

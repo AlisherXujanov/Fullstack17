@@ -52,22 +52,18 @@ function submit(e) {
     <HeadingVue heading="FAQ" path="Home . Pages . Faq" />
     <main>
       <div class="left">
-        <h2>Generel information</h2>
-        <p class="bold">Eu dictumst cum at sed euismood condimentum?</p>
-        <p class="small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit pariatur veritatis illo
-          doloremque assumenda eum soluta?</p>
+        <h2>Frequently Asked Questions</h2>
+        <p class="bold">What payment methods do you accept?</p>
+        <p class="small">We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers. All payments are processed securely through our payment partners.</p>
 
-        <p class="bold">Magna bibendum est fermentum eros.</p>
-        <p class="small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit pariatur veritatis illo
-          doloremque assumenda eum soluta?</p>
+        <p class="bold">What is your shipping policy?</p>
+        <p class="small">We offer free standard shipping on orders over $50. Express shipping is available for an additional fee. Delivery times vary by location, typically 3-7 business days for standard shipping.</p>
 
-        <p class="bold">Odio muskana hak eris conseekin sceleton?</p>
-        <p class="small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit pariatur veritatis illo
-          doloremque assumenda eum soluta?</p>
+        <p class="bold">What is your return policy?</p>
+        <p class="small">We offer a 30-day return window for all unused items in their original packaging. Returns are free with our prepaid shipping label. Refunds are processed within 5-7 business days.</p>
 
-        <p class="bold">Elit id blandit sabara boi velit gua mara?</p>
-        <p class="small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit pariatur veritatis illo
-          doloremque assumenda eum soluta?</p>
+        <p class="bold">How do I track my order?</p>
+        <p class="small">Once your order ships, you'll receive a tracking number via email. You can use this number to track your package through our website or the courier's tracking system.</p>
       </div>
       <div class="right">
         <form @submit.prevent="submit">
