@@ -66,7 +66,7 @@ const store = createStore({
         // async fetchProducts(context, payload)
         async fetchProducts({ commit }) {
             try {
-                const response = await axios.get(`${BASE_URL}/shopListItems`)
+                const response = await axios.get(`${BASE_URL}/shop-list-items`)
                 const data = await response.data
                 commit('setProducts', data)
                 console.log(this.state.products)

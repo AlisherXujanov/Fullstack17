@@ -30,7 +30,7 @@ async function handleSubmit(e) {
       "stars": 3, "liked": false,
       "likes": [2, 5, 9]
     }
-    const URL = `${BASE_URL}/shopListItems`
+    const URL = `${BASE_URL}/shop-list-items`
     await axios.post(URL, data)
     emit('toggle-modal', false)
     toast('Product created successfully', { autoClose: 3000, type: 'success' })
@@ -90,6 +90,8 @@ async function handleSubmit(e) {
 </template>
 
 <style lang="scss" scoped>
+@use "sass:color";
+
 .modal-screen {
   position: fixed;
   top: 0;
@@ -176,7 +178,7 @@ async function handleSubmit(e) {
         cursor: pointer;
 
         &:hover {
-          background: darken($violet, 10%);
+          background: color.adjust($violet, $lightness: -10%);
         }
       }
 

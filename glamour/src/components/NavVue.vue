@@ -15,7 +15,6 @@ const isSearchOpen = ref(false)
 
 const store = useStore()
 const products = computed(() => store.state.products)
-onMounted(() => { store.dispatch('fetchProducts') })
 
 const handleLogout = async () => {
   try {
