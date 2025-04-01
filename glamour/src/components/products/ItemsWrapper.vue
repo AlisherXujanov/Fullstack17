@@ -1,13 +1,19 @@
 <script setup>
 import { AnFilledStar } from '@kalimahapps/vue-icons'
 import { BxSearchAlt } from '@kalimahapps/vue-icons'
-import { LuShoppingCart } from '@kalimahapps/vue-icons'
+import { BxEdit } from '@kalimahapps/vue-icons';
 import { BxHeart } from '@kalimahapps/vue-icons'
 import { BxSolidHeart } from '@kalimahapps/vue-icons'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { goToTopSmoothly } from '@/composables/helpers'
+import { ref } from 'vue'
+import CreateUpdateForm from '@/components/CRUD/CreateUpdateForm.vue'
+
 
 const router = useRouter()
+const isModalOpen = ref(false)
+const item = ref(undefined)
+
 
 const emit = defineEmits(['toggle-like'])
 
@@ -15,6 +21,19 @@ const props = defineProps({
   items: Array, // first prop
   gridItems: Boolean, // second prop
 })
+
+const toggleModal = (bool, productID = undefined) => {
+  isModalOpen.value = bool
+
+  if (bool == false) {
+    window.location.reload()
+  }
+
+  if (productID) {
+    item.value = props.items.find(item => item.id === productID)
+  }
+}
+
 
 const handleProductClick = async (productId) => {
   await goToTopSmoothly()
@@ -75,7 +94,7 @@ const handleProductClick = async (productId) => {
         </p>
         <div class="action-buttons">
           <span class="add-to-card">
-            <LuShoppingCart />
+            <BxEdit @click="toggleModal(true, item.id)" />
           </span>
           <span class="toggle-like" @click="emit('toggle-like', item.id)">
             <BxHeart v-if="!item.liked" />
@@ -88,6 +107,12 @@ const handleProductClick = async (productId) => {
       </div>
     </div>
   </div>
+  <create-update-form
+    v-if="isModalOpen"
+    @toggle-modal="toggleModal(false)"
+    title="Update Product"
+    :item="item"
+  />
 </template>
 
 
@@ -364,7 +389,10 @@ $shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .item-info {
-      h3, .item-price, .action-buttons {
+
+      h3,
+      .item-price,
+      .action-buttons {
         justify-content: center;
       }
     }
@@ -380,5 +408,4 @@ $shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
   }
 }
-
 </style>

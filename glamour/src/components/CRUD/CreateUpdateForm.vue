@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { reactive } from 'vue'
 import { toast } from 'vue3-toastify'
 import { BASE_URL } from '@/store'
 import axios from "axios"
@@ -7,14 +7,25 @@ import axios from "axios"
 
 const colorChoices = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'brown', 'black', 'white', 'gray', 'pink', 'gold', 'silver', 'teal', 'lime', 'maroon', 'navy', 'olive', 'purple', 'teal', 'turquoise', 'violet', 'yellow']
 
+const props = defineProps({
+  item: {
+    type: Object,
+    required: false
+  },
+  title: {
+    type: String,
+    required: true,
+  }
+})
+
 const emit = defineEmits(['toggle-modal'])
 const form = reactive({
-  title: '',
-  price: '',
-  discount: '',
-  description: '',
-  colors: [],
-  pictureUrl: "",
+  title: props.item ? props.item.title : '',
+  price: props.item ? props.item.price : '',
+  discount: props.item ? props.item.discount : '',
+  description: props.item ? props.item.description : '',
+  colors: props.item ? props.item.colors : [],
+  pictureUrl: props.item ? props.item.pictureUrl : "",
   // stars: '',
   // liked: false,
   // likes: []
@@ -32,10 +43,18 @@ async function handleSubmit(e) {
       "stars": 3, "liked": false,
       "likes": [2, 5, 9]
     }
-    const URL = `${BASE_URL}/shop-list-items`
-    await axios.post(URL, data)
+
+    const URL = `${BASE_URL}/shop-list-items` + (props.item ? `/${props.item.id}` : "")
+    if (props.item) {
+      await axios.put(URL, data)
+    } else {
+      await axios.post(URL, data)
+    }
     emit('toggle-modal', false)
-    toast('Product created successfully', { autoClose: 3000, type: 'success' })
+    toast(
+      props.item ? 'Product updated successfully' : 'Product created successfully',
+      { autoClose: 3000, type: 'success' }
+    )
   } catch (error) {
     console.error('Error creating product:', error)
     toast(error.response?.data?.message || 'Failed to create product', {
@@ -45,15 +64,16 @@ async function handleSubmit(e) {
   }
 }
 
+
 </script>
 
 <template>
   <div>
     <div class="modal-screen">
       <div class="modal-content">
-        <h1>Create New Product</h1>
+        <h1>{{ props.title }}</h1>
 
-        <span id="close-modal" @click="emit('toggle-modal', false)">&times;</span>
+        <span id="close-modal" @click="emit('toggle-modal')">&times;</span>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <label for="title">Title</label>
@@ -83,27 +103,20 @@ async function handleSubmit(e) {
             <small class="text-muted">You can press ctrl+click to select multiple colors</small>
             <div class="colors-demonstration" v-if="form.colors.length > 0">
               <p class="selected-colors">
-               Selected <b>{{ form.colors.length }}</b> {{form.colors.length > 1 ? 'colors' : 'color'}}:
+                Selected <b>{{ form.colors.length }}</b> {{ form.colors.length > 1 ? 'colors' : 'color' }}:
                 <span v-for="c in form.colors" :key="c" :class="c"
-                  @click="(e) => { e.preventDefault(); form.colors = form.colors.filter(color => color !== c) }"
-                ></span>
+                  @click="(e) => { e.preventDefault(); form.colors = form.colors.filter(color => color !== c) }"></span>
               </p>
             </div>
           </div>
           <div class="form-group">
             <label for="pictureUrl">Picture URL</label>
             <input type="url" id="pictureUrl" v-model="form.pictureUrl" required placeholder="https://...">
-            <img
-              v-if="form.pictureUrl"
-              :src="form.pictureUrl"
-              alt="product-image"
-              class="product-image"
-              @click="(e) => { e.preventDefault(); form.pictureUrl = '' }"
-            >
+            <img v-if="form.pictureUrl" :src="form.pictureUrl" alt="product-image" class="product-image"
+              @click="(e) => { e.preventDefault(); form.pictureUrl = '' }">
           </div>
           <button type="submit"
-            :disabled="!form.title || !form.description || !form.price || !form.discount || !form.colors.length || !form.pictureUrl"
-          >Submit</button>
+            :disabled="!form.title || !form.description || !form.price || !form.discount || !form.colors.length || !form.pictureUrl">Submit</button>
         </form>
       </div>
     </div>

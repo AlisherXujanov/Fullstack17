@@ -151,42 +151,42 @@ $xx-large: 1525px;
 
         &.red {
             background-color: $magenta;
-            border-color: lighten($magenta, 20%);
+            border-color: color.adjust($magenta, $lightness: 20%);
         }
 
         &.blue {
             background-color: $violet-blue;
-            border-color: lighten($violet-blue, 20%);
+            border-color: color.adjust($violet-blue, $lightness: 20%);
         }
 
         &.green {
             background-color: $green;
-            border-color: lighten($green, 20%);
+            border-color: color.adjust($green, $lightness: 20%);
         }
 
         &.yellow {
             background-color: #FFD700;
-            border-color: lighten(#FFD700, 20%);
+            border-color: color.adjust(#FFD700, $lightness: 20%);
         }
 
         &.purple {
             background-color: $violet;
-            border-color: lighten($violet, 20%);
+            border-color: color.adjust($violet, $lightness: 20%);
         }
 
         &.orange {
             background-color: $orange;
-            border-color: lighten($orange, 20%);
+            border-color: color.adjust($orange, $lightness: 20%);
         }
 
         &.brown {
             background-color: #8B4513;
-            border-color: lighten(#8B4513, 20%);
+            border-color: color.adjust(#8B4513, $lightness: 20%);
         }
 
         &.black {
             background-color: #000000;
-            border-color: lighten(#000000, 20%);
+            border-color: color.adjust(#000000, $lightness: 20%);
         }
 
         &.white {
@@ -196,7 +196,7 @@ $xx-large: 1525px;
 
         &.gray {
             background-color: #808080;
-            border-color: lighten(#808080, 20%);
+            border-color: color.adjust(#808080, $lightness: 20%);
         }
 
         &.pink {

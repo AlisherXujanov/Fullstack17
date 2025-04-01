@@ -124,7 +124,7 @@ onBeforeUnmount(() => {
     <div class="shop-list-items-wrapper">
       <div class="shop-header">
         <button class="create-product-btn" @click="toggleModal(true)">Create new product</button>
-        <create-update-form v-if="isModalOpen" @toggle-modal="toggleModal" />
+        <create-update-form v-if="isModalOpen" @toggle-modal="toggleModal(false)" title="Create New Product" />
       </div>
 
       <div v-if="!loaded">
