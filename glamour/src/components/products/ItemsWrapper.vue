@@ -15,7 +15,7 @@ const isModalOpen = ref(false)
 const item = ref(undefined)
 
 
-const emit = defineEmits(['toggle-like'])
+const emit = defineEmits(['toggle-like', 'product-updated'])
 
 const props = defineProps({
   items: Array, // first prop
@@ -26,7 +26,7 @@ const toggleModal = (bool, productID = undefined) => {
   isModalOpen.value = bool
 
   if (bool == false) {
-    window.location.reload()
+    // No need to reload, the parent will handle the update
   }
 
   if (productID) {
@@ -34,6 +34,9 @@ const toggleModal = (bool, productID = undefined) => {
   }
 }
 
+const handleProductUpdate = (updatedProduct) => {
+  emit('product-updated', updatedProduct)
+}
 
 const handleProductClick = async (productId) => {
   await goToTopSmoothly()
@@ -110,6 +113,7 @@ const handleProductClick = async (productId) => {
   <create-update-form
     v-if="isModalOpen"
     @toggle-modal="toggleModal(false)"
+    @product-updated="handleProductUpdate"
     title="Update Product"
     :item="item"
   />

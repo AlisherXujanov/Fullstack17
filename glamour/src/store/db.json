@@ -2,13 +2,13 @@
   "shop-list-items": [
     {
       "title": "Modern Living Room Set (UPDATED)",
-      "price": 1299,
+      "price": 1200,
       "discount": 50,
       "description": "Elegant modern living room set featuring a comfortable sofa, coffee table, and decorative elements. Perfect for contemporary homes.",
       "colors": [
-        "gray",
-        "white",
-        "black"
+        "turquoise",
+        "violet",
+        "yellow"
       ],
       "pictureUrl": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&auto=format&fit=crop&q=60",
       "stars": 3,

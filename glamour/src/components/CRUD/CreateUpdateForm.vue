@@ -18,7 +18,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['toggle-modal'])
+const emit = defineEmits(['toggle-modal', 'product-updated'])
 const form = reactive({
   title: props.item ? props.item.title : '',
   price: props.item ? props.item.price : '',
@@ -45,10 +45,12 @@ async function handleSubmit(e) {
     }
 
     const URL = `${BASE_URL}/shop-list-items` + (props.item ? `/${props.item.id}` : "")
+    let response;
     if (props.item) {
-      await axios.put(URL, data)
+      response = await axios.put(URL, data)
+      emit('product-updated', response.data)
     } else {
-      await axios.post(URL, data)
+      response = await axios.post(URL, data)
     }
     emit('toggle-modal', false)
     toast(

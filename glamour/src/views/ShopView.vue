@@ -95,6 +95,11 @@ const handleItemsPerPageUpdate = (value) => {
   resetPagination()
 }
 
+const handleProductUpdate = async () => {
+  await vuex_store.dispatch('fetchProducts')
+  store.items = vuex_store.state.products
+}
+
 // ====================================================================
 // Lifecycle hooks ----------------------------------------------------
 onMounted(() => {
@@ -132,7 +137,12 @@ onBeforeUnmount(() => {
       </div>
       <div v-else>
         <h2>{{ gridItems ? 'Grid' : 'List' }} view</h2>
-        <items-wrapper :items="slicedItems" :gridItems="gridItems" @toggle-like="toggleLike" />
+        <items-wrapper
+          :items="slicedItems"
+          :gridItems="gridItems"
+          @toggle-like="toggleLike"
+          @product-updated="handleProductUpdate"
+        />
       </div>
     </div>
 
