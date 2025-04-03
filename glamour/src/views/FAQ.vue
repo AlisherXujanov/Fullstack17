@@ -2,37 +2,22 @@
 import HeadingVue from '@/components/HeadingVue.vue'
 import { reactive } from 'vue'
 import emailjs from '@emailjs/browser';
-import { PUBLIC_KEY, TEMPLATE_ID, SERVICE_ID } from '../../env';
-
-
-// const API_KEY = "..."
-// async function claude(prompt) {
-//   let response = await fetch(URL, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${API_KEY}`
-//     },
-//     body: JSON.stringify({ prompt })
-//   })
-//   // SHOW the response to the client
-// }
-
 
 const form = reactive({
   name: '',
   subject: '',
   message: ''
 })
+
 function submit(e) {
   emailjs
-    .send(SERVICE_ID, TEMPLATE_ID, {
-      name:form.name,
-      subject:form.subject,
-      message:form.message,
+    .send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, {
+      name: form.name,
+      subject: form.subject,
+      message: form.message,
       time: new Date().toLocaleString()
     }, {
-      publicKey:PUBLIC_KEY,
+      publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
     })
     .then(
       (response) => {
